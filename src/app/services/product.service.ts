@@ -12,14 +12,13 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
 
-  private BASE_URL = 'http://172.18.37.41:8080/api';
+  private BASE_URL = 'http://fordpoc-env.eba-zmjtsxkc.us-east-1.elasticbeanstalk.com/api';
 
 //save program
 
   public saveIncentiveProgram(product: Product) :Observable<any>{
 
     const url = `${this.BASE_URL}/ford/poc/saveIncentiveProgram`;
-   debugger;
     return this.http.post(url, product);
   }
 
@@ -40,7 +39,6 @@ export class ProductService {
 
   public saveIncentiveStructure(productRule : ProductRule):Observable<any>{
     const url = `${this.BASE_URL}/ford/poc/saveIncentiveStructure`;
-   debugger;
     return this.http.post(url, productRule);
   }
 
@@ -58,7 +56,7 @@ export class ProductService {
 
   public getCalculativeIncentiveList(dealerCodeList):Observable<any>{
     const url = `${this.BASE_URL}/ford/poc/calculateIncentive`;
-   return this.http.get(url);
+   return this.http.get(url, dealerCodeList);
   }
 
 

@@ -3,6 +3,8 @@ import { ProductRule , DropdownValue} from '../../models/product-rule';
 import { ProductService } from '../../services/product.service';
 import { Status } from '../../models/product';
 
+import { MessageService } from 'primeng/api'
+
 @Component({
   selector: 'app-product-rule',
   templateUrl: './product-rule.component.html',
@@ -21,6 +23,8 @@ export class ProductRuleComponent implements OnInit {
   selectedsaleService : DropdownValue;
   selectedRecepient : DropdownValue;
   selectedPerformanceTarget: DropdownValue;
+  selectedNofContracts: DropdownValue;
+  
 
   productType : any[];
   subproductType: any[];
@@ -28,12 +32,15 @@ export class ProductRuleComponent implements OnInit {
   saleService : any[];
   recepient: any[];
   performanceTarget: any[];
+  noOfContracts: any[]
 
   productRule : ProductRule;
 
   savedIncentiveList : ProductRule[];
 
-  constructor(public productService: ProductService) { 
+  isPrgExists: boolean = false;
+
+  constructor(public productService: ProductService, private messageService : MessageService) { 
     if(!this.productRule) {
       this.productRule = new ProductRule();
     }
@@ -42,56 +49,32 @@ export class ProductRuleComponent implements OnInit {
   ngOnInit(): void {
 
     // To get Program Code list on Load
-    // this.productService.getAllIncentiveProgram().subscribe((response)=>{
-    //   if(response && response.length){
-    //     this.programCodeList = response;
-    //   }
-    // })
-
-   let response = [
-
-      {
-  
-          "programCode": "PC002",
-  
-          "programName": "Cash Incentive",
-  
-          "dateFrom": "01-10-2019",
-  
-          "dateTo": "31-10-2019"
-  
-      },
-  
-      {
-  
-          "programCode": "PC001",
-  
-          "programName": "Cash Incentive",
-  
-          "dateFrom": "01-10-2019",
-  
-          "dateTo": "31-10-2019"
-  
+    this.productService.getAllIncentiveProgram().subscribe((response)=>{
+      if(!this.programCodeList){
+        this.programCodeList = [];
       }
-  
-  ]​
+    let codeList =[];
+      if(response && response.length){
+      //  this.programCodeList = response;
 
-  if(!this.programCodeList){
-    this.programCodeList = [];
-  }
-let codeList =[];
-  if(response && response.length){
-    response.forEach(x=>{
-      let obj = {
-        name:'',
-        code: ''
-      };
-      obj.name =  x.programName;
-      obj.code = x.programCode;
-  
-      this.programCodeList.push(obj);
+        response.forEach(x=>{
+          let obj = {
+            name:'',
+            code: ''
+          };
+          obj.name =  x.programName;
+          obj.code = x.programCode;
+      
+          this.programCodeList.push(obj);
+        });
+        this.isPrgExists  = true;
+
+      }
     })
-  }
+
+
+
+ 
  console.log(this.programCodeList,"kjhkjhk");
 
 // other dropdown
@@ -142,155 +125,83 @@ let codeList =[];
     this.productRule.contractType = this.selectedsaleService.code;
     this.productRule.recipient = this.selectedRecepient.code;
     this.productRule.performanceTarget = this.selectedPerformanceTarget.code;
+    this.productRule.noOfServices = this.selectedNofContracts.code;
+    this.productRule.incStructureId = null;
     console.log(this.productRule,"productRule");
 
-    // this.productService.saveIncentiveStructure(this.productRule).subscribe((response)=>{
-    //     //fill the table value;
-    //     // this.savedIncentiveList = response;
-    // })
+
+
+
+    this.productService.saveIncentiveStructure(this.productRule).subscribe((response)=>{
+        //fill the table value;
+        if(response.status === "Success"){
+          this.showSuccess();
+          this.savedIncentiveList.push(response);
+        }
+     
+      
+    })
     
     
   }
 
-  getProgramDetailsByCode(event){
-debugger;
 
-//     let programCode = event.target.value;
-//   let programIncentive = new Status();
-//   debugger;
-//   this.productRule.productType = "scheduledService";
-  
-//  if(!this.selectedProductType){
-//         this.selectedProductType = new DropdownValue();
-//         this.selectedProductType.code ="scheduledService";
-//         this.selectedProductType.name ="Scheduled Service";
-//       }
-
-//       this.ProductTypeChange();
-
-    // this.productService.getProgramDetailsByCode(programCode).subscribe((response)=>{
-    //   if(response.status === "Success"){
-     // programIncentive = response;
-      //     if(programIncentive.scheduleService === "true"){
-      //       this.productRule.programCode = programIncentive.programCode;
-      //       this.productRule.programName = programIncentive.programName;
-      //       this.productRule.productType = "scheduledService"
-      // if(!this.selectedProductType){
-      //   this.selectedProductType = new DropdownValue();
-      //   this.selectedProductType.code ="scheduledService";
-      //   this.selectedProductType.name ="Scheduled Service";
-      // }
-      //     }
-    //}
-    // })
-  }
+ 
 
   getAllIncentiveStructureByProgramCode(programCode){
 
-//  this.productService.getAllIncentiveStructureByProgramCode(programCode).subscribe((response)=>{
-  // if(response && response.incentiveStructureBOList && response.incentiveStructureBOList.length){
-//   this.savedIncentiveList = response.incentiveStructureBOList;
- // }
-//     })
-let response = {
-
-  "programCode": "PC002",
-
-  "programName": "Cash Incentive",
-
-  "dateFrom": "01-10-2019",
-
-  "dateTo": "31-10-2019",
-
-  "incentiveStructureBOList": [
-
-      {
-
-          "incStructureId": "1",
-
-          "programCode": "PC002",
-
-          "programName": "Cash Incentive",
-
-          "dateFrom": "16-10-2020",
-
-          "dateTo": "25-10-2020",
-
-          "productType": "Schedule Service",
-
-          "subProductType": "SSP",
-
-          "productSaleType": "Retail",
-
-          "contractType": "ALL",
-
-          "recipient": "Sales Consultant",
-
-          "noOfServices": "2",
-
-          "performanceTarget": "LT",
-
-          "incentives": "100",
-
-          "status": null,
-
-          "statusMsg": null
-
-      },
-
-      {
-
-          "incStructureId": "2",
-
-          "programCode": "PC002",
-
-          "programName": "Cash Incentive",
-
-          "dateFrom": "16-10-2020",
-
-          "dateTo": "25-10-2020",
-
-          "productType": "Schedule Service",
-
-          "subProductType": "SSP",
-
-          "productSaleType": "Retail",
-
-          "contractType": "ALL",
-
-          "recipient": "Sales Consultant",
-
-          "noOfServices": "2",
-
-          "performanceTarget": "LT",
-
-          "incentives": "100",
-
-          "status": null,
-
-          "statusMsg": null
-
-      }
-
-  ]
-
-}​
-this.productRule.programName = response.programName;
-this.productRule.dateFrom = response.dateFrom;
-this.productRule.dateTo = response.dateTo;
-
-this.savedIncentiveList = response.incentiveStructureBOList;
+ this.productService.getAllIncentiveStructureByProgramCode(programCode).subscribe((response)=>{
+  if(response){
+   
+    this.productRule.programName = response.programName;
+    this.productRule.dateFrom = response.dateFrom;
+    this.productRule.dateTo = response.dateTo;
+    if(response.incentiveStructureBOList && response.incentiveStructureBOList.length){
+      this.savedIncentiveList = response.incentiveStructureBOList;
+  } 
+ }
+    })
 
   }
-
+  SubProductChange(event){
+    let selectedProductType = event.value;
+    if(selectedProductType.name === 'SSP'){
+      //do SSP code
+ 
+      this.noOfContracts = [
+        {name:'2' ,code:'2'},
+        {name:'3' ,code:'3'},
+        {name:'4' ,code:'4'},
+        {name:'7' ,code:'7'}
+      ]
+    }
+    else{
+      //do osp code
+ 
+      this.noOfContracts = [
+       {name:'2' ,code:'2'},
+       {name:'3' ,code:'3'},
+    
+     ]
+    }
+  }
 
   ProgramCodeChange(event){
-debugger;
-   
-     // this.productRule.productType = event.value.code;
-   
+this.savedIncentiveList = [];
+//this.productRule = null;
+//this.selectedProgramCode = new DropdownValue();
+this.selectedProductType  = new DropdownValue();
+ this.selectedSubProductType = new DropdownValue();
+this.selectedproductSaleType = new DropdownValue();
+this.selectedsaleService = new DropdownValue();
+this.selectedRecepient = new DropdownValue();
+this.selectedPerformanceTarget= new DropdownValue();
+this.selectedNofContracts = new DropdownValue();
+this.productRule.incentives = null;
 
     this.getAllIncentiveStructureByProgramCode(this.selectedProgramCode.code);
   }
-  
+  showSuccess() {
+    this.messageService.add({severity:'success', summary: 'Success !', detail:'Incentive program struture added successful.'});
+  }
 }

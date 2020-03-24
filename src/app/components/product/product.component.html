@@ -17,14 +17,14 @@
             <div class="row mt-20">
                 <div class="col-md-12">
                     <label class="pr-15">From date:</label>
-                    <p-calendar [(ngModel)]="prdFromDate" [showIcon]="true"></p-calendar>
+                    <p-calendar [(ngModel)]="prdFromDate" dateFormat="dd-mm-yy" [showIcon]="true"></p-calendar>
                 </div>
            
         </div>
         <div class="row mt-20">
             <div class="col-md-12">
                 <label class="pr-15">To date:</label>
-                <p-calendar [(ngModel)]="prdToDate" [showIcon]="true"></p-calendar>
+                <p-calendar [(ngModel)]="prdToDate" dateFormat="dd-mm-yy" [minDate]="prdFromDate" [showIcon]="true"></p-calendar>
             </div>
        
        

@@ -5,15 +5,20 @@
             <div class="col-md-3 mt-10">
                 <label  class="pr-15">Dealer Code</label>
             </div>
-               <div class="col-md-9">
+               <div class="col-md-6">
                 <p-multiSelect [options]="dealerList" [(ngModel)]="selectedDealerCode"></p-multiSelect>
                
                </div>
+               <div class="col-md-3 btns">
+           
+                <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="calculateIncentive()">Calculate</button>
+             
+            </div>
             </div>
 
 
             <div class="row">
-                <p-table [value]="calculatedIncentiveList" class="pt-margin">
+                <p-table [value]="calculatedIncentiveList"[paginator]="true" [rows]="3" class="pt-margin">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Dealer Code</th>
@@ -37,7 +42,6 @@
                             <td>{{incStructureList.dealerName}}</td>
                             <td>{{incStructureList.productType}}</td>
                             <td>{{incStructureList.subProductType}}</td>
-                            <td>{{incStructureList.productSaleType}}</td>
                             <td>{{incStructureList.noOfClaimsAllowed2}}</td>
                              <td>{{incStructureList.noOfClaimsAllowed3}}</td>
                             <td>{{incStructureList.noOfClaimsAllowed4}}</td>
@@ -60,15 +64,7 @@
 
    
              
-    <div class ="row action-btn">
-        <div class="col-md-12 btns">
-           
-            <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="calculateIncentive()">Calculte</button>
-         
-        </div>
-    </div>
-<p-toast [style]="{marginTop: '80px'}"></p-toast>
-
+   
 
 
 <!-- <h1 class="pb-15">Calculate Incentive</h1>
