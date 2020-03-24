@@ -1,0 +1,96 @@
+
+  <div id="app-header">
+    <div id="app-branding">
+      <div id="app-icon" class="row">
+         <div class="col-md-2">
+           <div class="row">
+            <img src="assets/image/ford_logo.gif" class="logo" alt="Ford Oval"/>
+           </div>
+           <div class="row menu-header">
+    
+            <div class= "col-md-3">
+            <!-- <a routerLink="/home" style="font-size: 28px !important;">Home</a>
+             <a mat-button routerLink='/product' routerLinkActive='active'> Product </a> -->
+             <button mat-icon-button class="menu" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon> Menu
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        
+                <a mat-button routerLink="/home">Home</a>
+              </button>
+              <button mat-menu-item>
+                 <mat-icon>voicemail</mat-icon> 
+               <a mat-button routerLink='/product' routerLinkActive='active'>Product </a>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>voicemail</mat-icon> 
+              <a mat-button routerLink='/product-rule' routerLinkActive='active'>Product Rule</a>
+             </button>
+        
+             <button mat-menu-item>
+              <mat-icon>voicemail</mat-icon> 
+            <a mat-button routerLink='/calculate-incentive' routerLinkActive='active'>Calculate Incentive</a>
+           </button>
+              
+            </mat-menu>
+            
+        
+            </div>
+          </div>
+         
+         </div>
+         <div class="col-md-6">
+          <h1 class="mt-10">Ford Contests and Incentives</h1>
+         </div>
+     
+         <div class="col-md-2">
+          <div class="mt-10 pt-10">Welcome, User</div>
+         </div>
+        
+      
+         
+
+         
+      </div>
+      
+      
+      
+      
+  </div>
+  </div>
+
+
+<!-- <nav class="navbar">
+
+   
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <img src="https://bulma.io/images/bulma-logo.png">
+      </a>
+    </div>
+  </nav> 
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+       <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <h1>C&I Rules</h1>
+      <span class="menu-spacer"></span>
+      <div>
+         <a routerLink='A' routerLinkActive='active'>A</a>
+        <a routerLink='B' routerLinkActive='active'>B</a> 
+        <a mat-button routerLink='/home' routerLinkActive='active'> Home </a>
+        <a mat-button routerLink='/product' routerLinkActive='active'> Product </a>
+         <a mat-button [routerLink]="'/contacts'"> Contacts </a>
+        <a mat-button [routerLink]="'/create-contact'"> Create Contact </a>
+        <a mat-button [routerLink]="'/activities'"> Activities </a>
+        <a mat-button [routerLink]="'/create-activity'"> Create Activity </a> 
+  
+      </div>
+    </mat-toolbar-row>
+  
+    
+  </mat-toolbar> -->

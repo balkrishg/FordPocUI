@@ -1,0 +1,184 @@
+<header id="app-header">
+    <div id="app-branding">
+        <div id="app-icon">
+            <a routerLink="home/main-page"><img src="assets/image/ford_logo.gif" class="logo" alt="Ford Oval"
+                    style="width: 120%;" /></a>
+        </div>
+        <div id="app-name">
+            <h1><a routerLink="home/main-page" style="font-size: 28px !important;">Analytical Powertrain Data Manager
+                    (APDM)</a></h1>
+        </div>
+        <div class="secondaryGroup">
+            <div class="headerNav">
+                <ul class="nobull">
+                    <li style="color: greenyellow;">Welcome: {{userName}} ({{cdsId}})</li>
+                    <li>
+                        <h1><a (click)="showDialog()" class="confidential fontSize-16">CONFIDENTIAL FORD MOTOR
+                                COMPANY</a></h1>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- <div id="CONFIDENTIAL">
+			<h1><a (click)="showDialog()" class="confidential fontSize-16">CONFIDENTIAL FORD MOTOR COMPANY</a></h1>
+		</div>  -->
+        <div class="btn-sidebar">
+            <button (click)="hamMenu = true" pButton>
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </div>
+    <app-nav></app-nav>
+    <p-sidebar [(visible)]="hamMenu" position="right" modal="true">
+        <app-nav (closeClicked)="hamMenu=$event"></app-nav>
+    </p-sidebar>
+</header>
+<main id="app-content">
+    <p-growl></p-growl>
+    <router-outlet></router-outlet>
+</main>
+<footer id="app-footer" class="ui-g">
+    <div class="ui-g-12 text-center">
+        <!-- <p i18n="@@angularVersion">Angular version: {{version}}</p>
+		<p>{{envProd ? 'production' : 'development'}} {{demoProp}}</p> -->
+        <!-- <p i18n="@@copyright">Copyright © 2019 Ford Motor Company | All rights reserved.</p> -->
+        <p >Copyright © 2019 Ford Motor Company | All rights reserved.</p>
+        <div id="app-info">
+            <a (click)="showAppInfo()" class="fontSize-14">Application Information</a>
+        </div>
+    </div>
+</footer>
+
+<p-dialog header="CONFIDENTIAL FORD MOTOR COMPANY" [(visible)]="display" [modal]="true" [responsive]="true"
+    [width]="1000" [minWidth]="300" [minY]="200" [baseZIndex]="10000" class="fontSize-14">
+    <div class="p-grid p-justify-center">
+        <div class="p-col-12">
+            <div class="box">
+                <p>This is an unpublished work of authorship, which contains confidential information and/or trade
+                    secrets, created in YYYY (specify year - examples, 2004, 2005, etc.). Ford Motor Company owns all
+                    rights to this work and intends to maintain
+                    it in confidence to preserve its trade secret status. Ford Motor Company reserves all rights, under
+                    the copyright laws of the United States or those of any other country that may have jurisdiction,
+                    including the right to protect this
+                    work as an unpublished work, in the event of an inadvertent or deliberate unauthorized publication.
+                    Use of this work constitutes an agreement to maintain the confidentiality of the work, and to
+                    refrain from any reverse engineering,
+                    decompilation, or disassembly of this work.</p>
+                <p>
+                    Ford Motor Company also reserves its rights under all copyright laws to protect this work as a
+                    published work, when appropriate. Those having access to this work may not copy it, use it, modify
+                    it, or disclose the information contained in it without the
+                    written authorization of Ford Motor Company.
+                </p>
+                <p>
+                    This work is licensed, not sold by Ford, and Ford has the right to terminate the license to use this
+                    work at any time and for any reason. All uses of this work are limited to the terms and conditions
+                    established by Ford. In the event of termination of
+                    the license to use this work, any physical media containing copies of this work or related materials
+                    shall be returned to Ford, and any electronic copies of this work or related materials shall be
+                    immediately and permanently erased.</p>
+            </div>
+        </div>
+    </div>
+
+</p-dialog>
+
+
+
+<!-- Footer Application Information-->
+
+<p-dialog [(visible)]="AppInfoDisplay" [modal]="true" [responsive]="true" [width]="1000" [minWidth]="300" [minY]="200"
+    [baseZIndex]="10000" class="fontSize-14">
+    <p-header class="fontSize-20 fontBold">
+        Application Information
+    </p-header>
+    <div class="p-grid p-justify-center">
+        <div class="p-col-12">
+            <div class="box">
+                <h3>Build Information</h3>
+                <dl class="dl-horizontal">
+                    <div class="ui-g-4">
+                        <dt>Implementation Title:</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd> Distribution package - ptmp-wlp-v0.1.166-prod - Ear project - PtmpEAR - Environment - prod
+                        </dd>
+                    </div>
+                    <div class="ui-g-4">
+                        <dt>Implementation Version:</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd>PTMP_INT_PROD_uBuild_20190524T010637</dd>
+                    </div>
+                    <div class="ui-g-4">
+                        <dt>Implementation Vendor:</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd>Ford Motor Company</dd>
+                    </div>
+                    <div class="ui-g-4">
+                        <dt>Built By:</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd>uBuild(Buildlife: 390568)</dd>
+                    </div>
+                    <div class="ui-g-4">
+                        <dt>Build Date:</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd>May-24-2019 01:07:29</dd>
+                    </div>
+                </dl>
+
+                <h3>Runtime Environment Information</h3>
+                <dl class="dl-horizontal">
+                    <div class="ui-g-4">
+                        <dt>Environment:</dt>
+                    </div>
+
+                    <div class="ui-g-8">
+                        <dd>PROD</dd>
+                    </div>
+
+                    <div class="ui-g-4">
+                        <dt>Project Stage</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd>Production</dd>
+                    </div>
+
+                    <div class="ui-g-4">
+                        <dt>Application Server Hostname:</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd>639494ac-3e08-4186-549f-a39e</dd>
+                    </div>
+
+                    <div class="ui-g-4">
+                        <dt>Application Server IP Address:</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd>10.245.169.18</dd>
+                    </div>
+
+                    <div class="ui-g-4">
+                        <dt>Application Instance Name:</dt>
+                    </div>
+                    <div class="ui-g-8">
+                        <dd>PtmpServer</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</p-dialog>
+
+<p-dialog styleClass="whatsnew" header="New version of APDM" [(visible)]="whatHasChanged" [modal]="true" [responsive]="true" [width]="800" [minWidth]="300" [minY]="200" [baseZIndex]="10000">
+		<span class = "whatsnew" style="text-align: center; background-color: transparent !important;">
+			<h2>What's changed in the new version of APDM<i class="fal fa-comment-smile"></i></h2>
+			<h4><a href="assets/image/APDM_One_Pager.docx" download>
+				<span style="background-color: gray; color: white; padding: .2em .2em; text-decoration: none; text-transform: uppercase;">CLICK HERE</span></a> to find out...</h4>
+		</span>
+</p-dialog>
+<!---Footer Aplication Information End-->

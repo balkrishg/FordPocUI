@@ -1,0 +1,56 @@
+.pr-15{
+    padding-right:15px;
+}
+
+.mr-15{
+    margin-right: 15px;
+}
+.mt-20{
+    margin-top:20px;
+}
+.ml-10p{
+margin-left:10%;
+}
+.btns{
+   margin-top:5%;
+}
+
+.prd-btn{
+    float:right;
+    background-color: #6699cc;
+    color:white;
+}
+
+input:focus{
+    outline : none;
+    border-color: #6699cc;
+    border-radius: 6px;
+}
+.container{
+	margin-top:11px;
+	margin-bottom: 10x;
+	margin-left:11px;
+	//margin-right:10px;
+	//border:1px solid red;
+}
+
+.pb-10{
+    padding-top: 10px;
+}
+label{
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 250px;
+    text-align: right;
+}
+input {
+  display: inline-block;
+  height:35px;
+  float: left;
+  width:19%;
+  border-radius: 6px;
+}
+.action-btn{
+    margin-right:15%;
+}

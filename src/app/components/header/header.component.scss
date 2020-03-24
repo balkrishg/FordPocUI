@@ -1,0 +1,38 @@
+// .active { border: solid; }
+
+#app-header #app-branding {
+	background: #6699cc url(/assets/image/top.gif) no-repeat scroll 100% 44%;
+	background-size: 1200px 150px;
+	color: white;
+	font-weight: bold;
+}
+
+.logo{
+width: 75%;
+padding-top: 10px;
+padding-bottom: 10px;
+padding-left: 15px;
+margin-left: 20px;
+}
+
+.mt-10{
+margin-top:25px;
+}
+.pt-10
+{
+	padding-top: 10px;
+}
+
+a:hover{
+	color: inherit !important;
+    text-decoration: none !important;
+}
+
+.menu{
+	font-size: 20px;
+}
+
+.menu-header{
+	margin-left: 10px;
+    padding-bottom: 10px;
+}

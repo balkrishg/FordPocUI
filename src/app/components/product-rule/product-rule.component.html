@@ -1,0 +1,161 @@
+<div class="container">
+    <p-card header="Incentive Program Structure">
+        <div class="row  mt-20">
+            <div class="col-md-12">
+                <label  class="pr-15">Program Code:</label>
+                <p-dropdown [options]="programCodeList" [(ngModel)]="selectedProgramCode" placeholder="Select a Program Code" 
+                optionLabel="name" [showClear]="true" (onChange)="ProgramCodeChange($event)"></p-dropdown>
+               
+                <!-- <mat-label class="pr-15">Program Code:</mat-label>
+                <mat-form-field appearance="standard">
+                    <input matInput type="text" name="programCode" placeholder="program Code"
+                     [(ngModel)]="productRule.programCode" (blur)="getProgramDetailsByCode($event)">
+                  </mat-form-field> -->
+            </div>
+            </div>
+            <div class="row  mt-20">
+                <div class="col-md-12">
+                    <label class="pr-15">Program Name:</label>
+                    
+                     <input  type="text"  name="programName"  placeholder="Program Name" 
+                     [(ngModel)]="productRule.programName" />
+                   
+                </div>
+            </div>
+            <div class="row  mt-20">
+                <div class="col-md-12">
+                    <!-- <label class="pr-15">From date:</label>
+                    <p-calendar [(ngModel)]="dateFrom" [showIcon]="true"></p-calendar> -->
+                    <label class="pr-15">From date:</label>
+                     <input type="text"  name="dateFrom"  placeholder="From date" 
+                     [(ngModel)]="productRule.dateFrom" />
+                </div>
+        </div>
+        <div class="row  mt-20">
+            <div class="col-md-12">
+                <!-- <label class="pr-15">To date:</label>
+                <p-calendar [(ngModel)]="dateTo" [showIcon]="true"></p-calendar> -->
+                 <label class="pr-15">To date:</label>
+                     <input type="text"  name="dateTo"  placeholder="To date" 
+                     [(ngModel)]="productRule.dateTo" />
+            </div>
+    </div>
+            <!-- <div class="row">
+                <div class="col-md-12">
+                 
+                        <label  class="pr-15">Product Type</label>
+                        <p-dropdown [options]="productType" [(ngModel)]="selectedProductType" placeholder="Select a Product Type" 
+                        optionLabel="name" [showClear]="true" (onChange)="ProductTypeChange($event)"></p-dropdown>
+                       
+                </div>
+            </div> -->
+            
+         
+            <div class ="row pb-15">
+                <div class="col-md-12 btns">
+                    <button mat-raised-button class="prd-btn"(click)="showDialog()">Add Product Rule</button>
+                 
+                </div>
+            </div>
+
+            <div class="row">
+                <p-table [value]="savedIncentiveList" class="pt-margin">
+                    <ng-template pTemplate="header">
+                        <tr>
+                           
+                            <th>Product Type</th>
+                            <th>Subproduct Type</th>
+                            <th>Sales Type</th>
+                            <th>Service Type</th>
+                            <th>Recepient</th>
+                            <th>No of Services</th>
+                            <th>Performance Target</th>
+                            <th>Incentive</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-incStructureList>
+                        <tr>
+                            <td>{{incStructureList.productType}}</td>
+                            <td>{{incStructureList.subProductType}}</td>
+                            <td>{{incStructureList.productSaleType}}</td>
+                            <td>{{incStructureList.contractType}}</td>
+                             <td>{{incStructureList.recipient}}</td>
+                            <td>{{incStructureList.noOfServices}}</td>
+                            <td>{{incStructureList.performanceTarget}}</td>
+                            <td>{{incStructureList.incentives}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+    
+              
+            </div>
+    </p-card>
+    <p-dialog header="Add Product Incentive Structure" [(visible)]="display" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+        <div class="row pb-15">
+          <div class="col-md-6">
+            <label  class="pr-15">Product Type:</label>
+            <p-dropdown [options]="productType" [(ngModel)]="selectedProductType" placeholder="Select a Product Type" 
+            optionLabel="name" [showClear]="true" ></p-dropdown>
+          
+          </div>
+            <div class="col-md-6">
+                <label class="pr-15">Subproduct Type:</label>
+                <p-dropdown [options]="subproductType" [(ngModel)]="selectedSubProductType" 
+                placeholder="Select a Sub Product Type" optionLabel="name" [showClear]="true"></p-dropdown>
+             
+            </div>
+          
+        </div>
+        <div class="row pb-15">
+            <div class="col-md-6">
+                <label  class="pr-15">Product Sale Type:</label>
+                <p-dropdown [options]="productSaleType" [(ngModel)]="selectedproductSaleType" 
+                placeholder="Select a product Sale Type" optionLabel="name" [showClear]="true"></p-dropdown>
+              
+            </div>
+            <div class="col-md-6">
+                <label  class="pr-15">Sale/Service:
+                </label> 
+                <p-dropdown [options]="saleService" [(ngModel)]="selectedsaleService" 
+                placeholder="Select a Sale/Service" optionLabel="name" [showClear]="true"></p-dropdown>
+            
+            </div>
+        </div>
+        <div class="row pb-15">
+           
+            <div class="col-md-6">
+                <label  class="pr-15">Recepient:</label>
+                       <p-dropdown [options]="recepient" [(ngModel)]="selectedRecepient" 
+                placeholder="Select a Recepient" optionLabel="name" [showClear]="true"></p-dropdown>
+            
+            </div>
+            <div class="col-md-6">
+                <label  class="pr-15">Number of Service:</label>
+                <input type="text" id="NOS" [(ngModel)]="productRule.noOfServices" placeholder="Please enter number of service"/>
+            </div>
+        </div>
+        <div class="row pb-15">
+            <div class="col-md-6">
+                <label  class="pr-15">Performance Target:
+                </label>
+                <p-dropdown [options]="performanceTarget" [(ngModel)]="selectedPerformanceTarget" 
+                placeholder="Select a performance Target" optionLabel="name" [showClear]="true"></p-dropdown>
+            
+            </div>
+            <div class="col-md-6">
+                <label  class="pr-15">Incentive/Contracts:</label>
+                <input type="text" id="Incentive" [(ngModel)]="productRule.incentives"placeholder="Please enter incentive"/>
+            </div>
+          
+        </div>
+
+         <p-footer>
+            <button mat-raised-button class="prd-btn"(click)="SaveIncentiveStructure()">Save Incentive Structure</button>
+            <button mat-raised-button class="prd-btn"(click)="display=false">Cancel</button>
+            <!-- <button type="button" pButton class="prd-btn" (click)="display=false" label="Yes"></button>
+            <button type="button" pButton class="prd-btn"(click)="display=false" label="No" ></button> -->
+        </p-footer>
+</p-dialog>
+
+</div>

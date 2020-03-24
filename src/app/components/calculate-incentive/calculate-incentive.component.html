@@ -1,0 +1,116 @@
+
+<div class="container">
+    <p-card header=" Calculate Incentive">
+        <div class="row mt-20">
+            <div class="col-md-3 mt-10">
+                <label  class="pr-15">Dealer Code</label>
+            </div>
+               <div class="col-md-9">
+                <p-multiSelect [options]="dealerList" [(ngModel)]="selectedDealerCode"></p-multiSelect>
+               
+               </div>
+            </div>
+
+
+            <div class="row">
+                <p-table [value]="calculatedIncentiveList" class="pt-margin">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Dealer Code</th>
+                            <th>Dealer Name</th>
+                            <th>Product Type</th>
+                            <th>Subproduct Type</th>
+                            <th>No Of Claims Allowed 2</th>
+                            <th>No Of Claims Allowed 3</th>
+                            <th>No Of Claims Allowed 4</th>
+                            <th>No of claims Allowed 7</th>
+                            <th>Target Achieved</th>
+                            <th>Target</th>
+                            <th>Achieved Percentage</th>
+                            <th>Incentive Category</th>
+                            <th>Total</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-incStructureList>
+                        <tr>
+                            <td>{{incStructureList.dealerCode}}</td>
+                            <td>{{incStructureList.dealerName}}</td>
+                            <td>{{incStructureList.productType}}</td>
+                            <td>{{incStructureList.subProductType}}</td>
+                            <td>{{incStructureList.productSaleType}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed2}}</td>
+                             <td>{{incStructureList.noOfClaimsAllowed3}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed4}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed7}}</td>
+                            <td>{{incStructureList.targetAchieved}}</td>
+                            <td>{{incStructureList.target}}</td>
+                            <td>{{incStructureList.achievedPercentage}}</td>
+                            <td>{{incStructureList.incentiveCategory}}</td>
+                            <td>{{incStructureList.total}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+    
+              
+            </div>
+    </p-card>
+</div>
+
+
+
+   
+             
+    <div class ="row action-btn">
+        <div class="col-md-12 btns">
+           
+            <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="calculateIncentive()">Calculte</button>
+         
+        </div>
+    </div>
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+
+<!-- <h1 class="pb-15">Calculate Incentive</h1>
+<div class="row pb-15">
+    <label  class="pr-15">Product Type</label>
+    <p-dropdown [options]="productType" [(ngModel)]="selectedProductType" (onChange)="productTypeChange($event)" placeholder="Select a Product Type" optionLabel="name" [showClear]="true"></p-dropdown>
+</div>
+<div class="row pb-15">
+   <h2>Selected Product to calculate Incentive : <strong>{{selectedProductType.name?selectedProductType.name:"" }}</strong></h2> 
+</div>
+<div class="row pb-15">
+    <div class="col-md-4">
+        <label  class="pr-15">Dealer Code</label>
+        <input type="text" placeholder="Please enter Dealer Code"/>         
+    </div>
+    <div class="col-md-4">
+        <label class="pr-15">Dealer Name</label>
+        <input type="text" placeholder="Please enter Dealer Name"/>      
+    </div>
+    <div class="col-md-4">
+        <label  class="pr-15">No of Contracts</label>
+        <p-dropdown [options]="noOfContracts" [(ngModel)]="selectedNofContracts"  placeholder="Select a No of Contracts" optionLabel="name" [showClear]="true"></p-dropdown>
+    </div>
+</div>
+<div class="row pb-15">
+    <div class="col-md-4">
+        <label  class="pr-15">Target</label>
+        <input type="text" placeholder="Please enter Dealer Code"/>         
+    </div>
+    <div class="col-md-4">
+        <label class="pr-15">Achievement</label>
+        <input type="text" placeholder="Please enter Dealer Name"/>      
+    </div>
+    <div class="col-md-4">
+        <label  class="pr-15">Incentive Category</label>
+        <input type="text" placeholder="Please enter Dealer Name"/>
+    </div>
+</div>
+<div class ="row">
+    <div class="col-md-12 btns">
+        <button mat-raised-button  class="mr-15 pr-15 prd-btn">Cancel</button>
+        <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="calculateIncentive()">Calculate</button>
+     
+    </div>
+</div> -->

@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Verdana, Arial, Helvetica, sans-serif;}
+    //"Helvetica Neue", sans-serif; }
+
+.mat-menu-panel{
+    background-color: #6699cc !important;
+}
+
+.mat-menu-item-highlighted:not([disabled]), 
+.mat-menu-item.cdk-keyboard-focused:not([disabled]), 
+.mat-menu-item.cdk-program-focused:not([disabled]), 
+.mat-menu-item:hover:not([disabled]){
+    background:white !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background{
+    background-color: #6699cc !important;
+}
+
+.ui-dropdown, .ui-multiselect{
+    width:45% !important;
+}
