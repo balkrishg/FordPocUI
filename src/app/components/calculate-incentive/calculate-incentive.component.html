@@ -1,7 +1,7 @@
 
 <div class="container">
     <p-card header=" Calculate Incentive">
-        <div class="row mt-20">
+        <div class="row mt-50">
             <div class="col-md-3 mt-10">
                 <label  class="pr-15">Dealer Code</label>
             </div>
@@ -16,9 +16,14 @@
             </div>
             </div>
 
+<div class="row">
+    <div class="pt-margin">
+        <strong>Calculated Incentives</strong>
 
-            <div class="row">
-                <p-table [value]="calculatedIncentiveList"[paginator]="true" [rows]="3" class="pt-margin">
+    </div>
+</div>
+            <div class="row" id="">
+                <p-table [value]="calculatedIncentiveList"[paginator]="true" [rows]="5" class="pt-margin">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Dealer Code</th>

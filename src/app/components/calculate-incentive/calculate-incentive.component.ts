@@ -22,13 +22,28 @@ export class CalculateIncentiveComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // To get Dealer Code list on Load
-     this.productService.getAllDealerList().subscribe((response)=>{
-       if(response && response.length){
-         this.dealerList = response;
-       }
-     })
+   // To get Dealer Code list on Load
+      this.productService.getAllDealerList().subscribe((response)=>{
+        if(response && response.length){
+         // this.dealerList = response;
+      if(!this.dealerList){
+        this.dealerList = [];
+      }
 
+         response.forEach(x=>{
+             let obj = {
+               label:'',
+               value: ''
+             };
+             obj.label =  x.value + '-' + x.label;
+             obj.value = x.value;
+        
+             this.dealerList.push(obj);
+           })
+        }
+      })
+
+  
   
 }
     
@@ -37,6 +52,7 @@ export class CalculateIncentiveComponent implements OnInit {
   
 
   calculateIncentive(){
+
  let dealerCodeList = this.selectedDealerCode;
 
  

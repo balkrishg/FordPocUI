@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <label  class="pr-15">Program Code:</label>
                 <p-dropdown [options]="programCodeList" [(ngModel)]="selectedProgramCode" placeholder="Select a Program Code" 
-                optionLabel="name" [showClear]="true" (onChange)="ProgramCodeChange($event)"></p-dropdown>
+                optionLabel="code" [showClear]="true" (onChange)="ProgramCodeChange($event)"></p-dropdown>
               
             </div>
             </div>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="row">
-                <p-table [value]="savedIncentiveList" [paginator]="true" [rows]="2"class="pt-margin">
+                <p-table [value]="savedIncentiveList" [paginator]="true" [rows]="5"class="pt-margin">
                     <ng-template pTemplate="header">
                         <tr>
                            
@@ -138,7 +138,7 @@
 
          <p-footer>
             <button mat-raised-button class="prd-btn"(click)="SaveIncentiveStructure()">Save Incentive Structure</button>
-            <button mat-raised-button class="prd-btn"(click)="display=false">Cancel</button>
+            <button mat-raised-button class="prd-btn"(click)="cancelIncentiveStructure()">Cancel</button>
             <!-- <button type="button" pButton class="prd-btn" (click)="display=false" label="Yes"></button>
             <button type="button" pButton class="prd-btn"(click)="display=false" label="No" ></button> -->
         </p-footer>

@@ -23,3 +23,7 @@ body { margin: 0; font-family: Verdana, Arial, Helvetica, sans-serif;}
 .ui-dropdown, .ui-multiselect{
     width:45% !important;
 }
+
+// ::ng-deep .your-table .ui-datatable-scrollable-view .ui-datatable-scrollable-body {
+//     min-height: 27vh;
+// }

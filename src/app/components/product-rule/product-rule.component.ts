@@ -80,29 +80,32 @@ export class ProductRuleComponent implements OnInit {
 // other dropdown
 
     this.productType = [{
-      name: 'Scheduled Service', code: 'scheduledService'
-    }],
+      name: 'Schedule Service', code: 'scheduledService'
+    },
+  { name: 'Extended Warranty', code: 'extendedwarranty'}],
     this.productSaleType = [{
-      name: 'Retail', code: 'retail'
+      name: 'Retail', code: 'RETAIL'
     }],
     this.saleService = [{
-      name: 'All', code: 'all'
-    }],
+      name: 'All', code: 'ALL'
+    },
+  { name: 'Sales', code: 'SALES'},{ name: 'Service', code: 'SERVICE'},
+  { name: 'N/A', code: 'N/A'}],
     this.recepient = [{
-      name: 'Sales Consultant', code: 'salesConsultant'
+      name: 'Sales Consultant', code: 'SalesConsultant'
     }],
     this.subproductType =[{
-      name: 'SSP', code: 'ssp'
+      name: 'SSP', code: 'SSP'
     },
   {
     name:'OSP',
-    code:'osp'
+    code:'OSP'
   }],
   this.performanceTarget =[{
-    name: 'lesser than 100%', code: 'lt'
+    name: 'lesser than 100%', code: 'LT'
   },
 {
-  name: 'greater than 100%', code: 'gt'
+  name: 'greater than 100%', code: 'GT'
 }]
   }
 
@@ -119,11 +122,11 @@ export class ProductRuleComponent implements OnInit {
   SaveIncentiveStructure(){
     this.display=false;
     this.productRule.programCode = this.selectedProgramCode.code;
-    this.productRule.productType = this.selectedProductType.code;
+    this.productRule.productType = this.selectedProductType.name;
     this.productRule.subProductType = this.selectedSubProductType.code;
     this.productRule.productSaleType = this.selectedproductSaleType.code;
     this.productRule.contractType = this.selectedsaleService.code;
-    this.productRule.recipient = this.selectedRecepient.code;
+    this.productRule.recipient = this.selectedRecepient.name;
     this.productRule.performanceTarget = this.selectedPerformanceTarget.code;
     this.productRule.noOfServices = this.selectedNofContracts.code;
     this.productRule.incStructureId = null;
@@ -135,11 +138,12 @@ export class ProductRuleComponent implements OnInit {
     this.productService.saveIncentiveStructure(this.productRule).subscribe((response)=>{
         //fill the table value;
         if(response.status === "Success"){
+          debugger;
           this.showSuccess();
           this.savedIncentiveList.push(response);
         }
      
-      
+      console.log(this.savedIncentiveList,"jhhjjhjh")
     })
     
     
@@ -187,6 +191,7 @@ export class ProductRuleComponent implements OnInit {
   }
 
   ProgramCodeChange(event){
+    debugger;
 this.savedIncentiveList = [];
 //this.productRule = null;
 //this.selectedProgramCode = new DropdownValue();
@@ -203,5 +208,10 @@ this.productRule.incentives = null;
   }
   showSuccess() {
     this.messageService.add({severity:'success', summary: 'Success !', detail:'Incentive program struture added successful.'});
+  }
+
+  cancelIncentiveStructure(){
+    this.display = false;
+    
   }
 }

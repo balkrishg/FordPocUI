@@ -53,6 +53,7 @@ minDate : Date;
     this.productService.saveIncentiveProgram(this.product).subscribe((response)=>{
       if(response.status === "Success"){
         //console.log(response,"ha");
+        this.clearIncentive();
         this.showSuccess();
       }
      
@@ -63,6 +64,20 @@ minDate : Date;
    
    showSuccess() {
     this.messageService.add({severity:'success', summary: 'Success !', detail:'Incentive program saved successful.'});
+  }
+
+  cancelIncentive(){
+    this.clearIncentive();
+  }
+
+  clearIncentive(){
+    this.product.programCode = null;
+    this.product.programName = null;
+    this.product.dateFrom = null;
+    this.product.dateTo = null;
+    this.prdFromDate = null;
+    this.prdToDate = null;
+    
   }
 
 }

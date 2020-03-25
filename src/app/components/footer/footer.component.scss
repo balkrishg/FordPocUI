@@ -1,11 +1,20 @@
 .footer{
-    position: absolute;
+//     position: absolute;
+// bottom: 0;
+// width: 100%;
+// height: 2.5rem;
+// text-align: center;
+// background-color:#6699cc;
+// color:#FFF;
 bottom: 0;
-width: 100%;
-height: 2.5rem;
-text-align: center;
 background-color:#6699cc;
-color:#FFF;
+color: #FFF;
+height: 3em;
+text-align: center;
+left: 0;
+position: relative; //changed to relative from fixed also works if position is not there
+font-size: small;
+width:100%;
 .footer-content{
     padding-top:10px;
 }
