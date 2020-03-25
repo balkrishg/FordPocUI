@@ -138,7 +138,6 @@ export class ProductRuleComponent implements OnInit {
     this.productService.saveIncentiveStructure(this.productRule).subscribe((response)=>{
         //fill the table value;
         if(response.status === "Success"){
-          debugger;
           this.showSuccess();
           this.savedIncentiveList.push(response);
         }
@@ -191,7 +190,6 @@ export class ProductRuleComponent implements OnInit {
   }
 
   ProgramCodeChange(event){
-    debugger;
 this.savedIncentiveList = [];
 //this.productRule = null;
 //this.selectedProgramCode = new DropdownValue();
@@ -211,6 +209,14 @@ this.productRule.incentives = null;
   }
 
   cancelIncentiveStructure(){
+    this.selectedProductType  = new DropdownValue();
+ this.selectedSubProductType = new DropdownValue();
+this.selectedproductSaleType = new DropdownValue();
+this.selectedsaleService = new DropdownValue();
+this.selectedRecepient = new DropdownValue();
+this.selectedPerformanceTarget= new DropdownValue();
+this.selectedNofContracts = new DropdownValue();
+this.productRule.incentives = null;
     this.display = false;
     
   }
