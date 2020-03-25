@@ -138,6 +138,7 @@ export class ProductRuleComponent implements OnInit {
     this.productService.saveIncentiveStructure(this.productRule).subscribe((response)=>{
         //fill the table value;
         if(response.status === "Success"){
+          this.clearIncentiveStructure();
           this.showSuccess();
           this.savedIncentiveList.push(response);
         }
@@ -193,15 +194,8 @@ export class ProductRuleComponent implements OnInit {
 this.savedIncentiveList = [];
 //this.productRule = null;
 //this.selectedProgramCode = new DropdownValue();
-this.selectedProductType  = new DropdownValue();
- this.selectedSubProductType = new DropdownValue();
-this.selectedproductSaleType = new DropdownValue();
-this.selectedsaleService = new DropdownValue();
-this.selectedRecepient = new DropdownValue();
-this.selectedPerformanceTarget= new DropdownValue();
-this.selectedNofContracts = new DropdownValue();
-this.productRule.incentives = null;
 
+this.clearIncentiveStructure();
     this.getAllIncentiveStructureByProgramCode(this.selectedProgramCode.code);
   }
   showSuccess() {
@@ -209,6 +203,12 @@ this.productRule.incentives = null;
   }
 
   cancelIncentiveStructure(){
+   this.clearIncentiveStructure();
+    this.display = false;
+    
+  }
+
+  clearIncentiveStructure(){
     this.selectedProductType  = new DropdownValue();
  this.selectedSubProductType = new DropdownValue();
 this.selectedproductSaleType = new DropdownValue();
@@ -217,7 +217,5 @@ this.selectedRecepient = new DropdownValue();
 this.selectedPerformanceTarget= new DropdownValue();
 this.selectedNofContracts = new DropdownValue();
 this.productRule.incentives = null;
-    this.display = false;
-    
   }
 }
