@@ -7,6 +7,7 @@ import { CalculateIncentiveComponent } from './components/calculate-incentive/ca
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/product', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },
   { path: 'product-rule', component: ProductRuleComponent},
