@@ -89,8 +89,7 @@ export class ProductRuleComponent implements OnInit {
     this.saleService = [{
       name: 'All', code: 'ALL'
     },
-  { name: 'Sales', code: 'SALES'},{ name: 'Service', code: 'SERVICE'},
-  { name: 'N/A', code: 'N/A'}],
+  { name: 'Sales', code: 'SALES'},{ name: 'Service', code: 'SERVICE'}],
     this.recepient = [{
       name: 'Sales Consultant', code: 'SalesConsultant'
     }],
@@ -102,16 +101,17 @@ export class ProductRuleComponent implements OnInit {
     code:'OSP'
   }],
   this.performanceTarget =[{
-    name: 'lesser than 100%', code: 'LT'
+    name: '<=100%', code: 'LT'
   },
 {
-  name: 'greater than 100%', code: 'GT'
+  name: '>=100%', code: 'GT'
 }]
   }
 
  
 
   showDialog() {
+    this.clearIncentiveStructure();
       this.display = true;
   }
 
