@@ -12,7 +12,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
 
-  private BASE_URL = 'http://fordpoc-env.eba-zmjtsxkc.us-east-1.elasticbeanstalk.com/api';
+  //private BASE_URL = 'http://fordpoc-env.eba-zmjtsxkc.us-east-1.elasticbeanstalk.com/api';
+  private BASE_URL = 'http://localhost:5000/api';
 
 //save program
 
@@ -56,7 +57,7 @@ export class ProductService {
 
   public getCalculativeIncentiveList(dealerCodeList):Observable<any>{
     const url = `${this.BASE_URL}/ford/poc/calculateIncentive`;
-   return this.http.get(url, dealerCodeList);
+   return this.http.post(url, dealerCodeList);
   }
 
 
