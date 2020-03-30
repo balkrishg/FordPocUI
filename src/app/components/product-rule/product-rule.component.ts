@@ -3,6 +3,7 @@ import { ProductRule , DropdownValue} from '../../models/product-rule';
 import { ProductService } from '../../services/product.service';
 import { Status } from '../../models/product';
 
+
 import { MessageService } from 'primeng/api'
 
 @Component({
@@ -101,7 +102,7 @@ export class ProductRuleComponent implements OnInit {
     code:'OSP'
   }],
   this.performanceTarget =[{
-    name: '<=100%', code: 'LT'
+    name: '<100%', code: 'LT'
   },
 {
   name: '>=100%', code: 'GT'
@@ -218,4 +219,6 @@ this.selectedPerformanceTarget= new DropdownValue();
 this.selectedNofContracts = new DropdownValue();
 this.productRule.incentives = null;
   }
+
+ 
 }

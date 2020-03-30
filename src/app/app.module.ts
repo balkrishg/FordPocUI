@@ -28,6 +28,10 @@ import { TableModule } from 'primeng/table';
 import {CardModule} from 'primeng/card';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {CalendarModule} from 'primeng/calendar';
+import {TabViewModule} from 'primeng/tabview';
+
+
+import { ExcelService } from './services/excel.service';
 
 import { CalculateIncentiveComponent } from './components/calculate-incentive/calculate-incentive.component';
 
@@ -68,12 +72,13 @@ import { CalculateIncentiveComponent } from './components/calculate-incentive/ca
     TableModule,
     CardModule,
     MultiSelectModule,
-    CalendarModule
+    CalendarModule,
+    TabViewModule
 
     
   ],
   
-  providers:[ProductService, MessageService],
+  providers:[ProductService, MessageService, ExcelService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

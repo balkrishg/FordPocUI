@@ -3,15 +3,42 @@
     <p-card header=" Calculate Incentive">
         <div class="row mt-50">
             <div class="col-md-3 mt-10">
-                <label  class="pr-15">Dealer Code</label>
+                <label  class="pr-15">Dealer Code:</label>
             </div>
                <div class="col-md-6">
                 <p-multiSelect [options]="dealerList" [(ngModel)]="selectedDealerCode"></p-multiSelect>
                
                </div>
-               <div class="col-md-3 btns">
+               <!-- <div>
+                <label  class="pr-15">Program Code:</label>
+                <p-dropdown [options]="programCodeList" [(ngModel)]="selectedProgramCode" placeholder="Select a Program Code" 
+                optionLabel="code" [showClear]="true" (onChange)="ProgramCodeChange($event)"></p-dropdown>
+              
+               </div> -->
+               <!-- <div class="col-md-3 btns">
            
                 <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="calculateIncentive()">Calculate</button>
+             
+            </div> -->
+            </div>
+
+              <div class="row mt-50">
+            <div class="col-md-3 mt-10">
+                <label  class="pr-15">Program Code:</label>
+            </div>
+               <div class="col-md-6">
+                <p-multiSelect [options]="programCodeList" [(ngModel)]="selectedProgramCode"></p-multiSelect>
+               
+               </div>
+               <!-- <div>
+                <label  class="pr-15">Program Code:</label>
+                <p-dropdown [options]="programCodeList" [(ngModel)]="selectedProgramCode" placeholder="Select a Program Code" 
+                optionLabel="code" [showClear]="true" (onChange)="ProgramCodeChange($event)"></p-dropdown>
+              
+               </div> -->
+               <div class="col-md-3 btns">
+           
+                <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="calculateIncentive()">Report</button>
              
             </div>
             </div>
@@ -22,7 +49,16 @@
 
     </div>
 </div>
+<div class="row">
+  
+  
+    
+</div>
             <div class="row" id="">
+                <p-tabView class="tab-margin">
+                    <p-tabPanel header="OSP">
+                      
+                       <div class="row">
                 <p-table [value]="calculatedIncentiveList" [paginator]="true" [rows]="10" [scrollable]="true" scrollHeight="350px"  class="pt-margin">
                     <ng-template pTemplate="header">
                         <tr>
@@ -59,6 +95,121 @@
                         </tr>
                     </ng-template>
                 </p-table>
+                       </div>
+
+                       <div class="row">
+                           <div class="col-md-9">
+
+                           </div>
+                           <div class="col-md-3">
+                            <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="exportAsOSP()">Export</button>
+                           </div>
+                        
+                    </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="SSP">
+                       
+                       <div class="row">
+                        <p-table [value]="calculatedIncentiveList"[paginator]="true" [rows]="5" class="pt-margin">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Dealer Code</th>
+                                    <th>Dealer Name</th>
+                                    <th>Product Type</th>
+                                    <th>Subproduct Type</th>
+                                    <th>No Of Claims Allowed 2</th>
+                                    <th>No Of Claims Allowed 3</th>
+                                    <th>No Of Claims Allowed 4</th>
+                                    <th>No of claims Allowed 7</th>
+                                    <th>Target Achieved</th>
+                                    <th>Target</th>
+                                    <th>Achieved Percentage</th>
+                                    <th>Incentive Category</th>
+                                    <th>Total</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-incStructureList>
+                                <tr>
+                                    <td>{{incStructureList.dealerCode}}</td>
+                                    <td>{{incStructureList.dealerName}}</td>
+                                    <td>{{incStructureList.productType}}</td>
+                                    <td>{{incStructureList.subProductType}}</td>
+                                    <td>{{incStructureList.noOfClaimsAllowed2}}</td>
+                                     <td>{{incStructureList.noOfClaimsAllowed3}}</td>
+                                    <td>{{incStructureList.noOfClaimsAllowed4}}</td>
+                                    <td>{{incStructureList.noOfClaimsAllowed7}}</td>
+                                    <td>{{incStructureList.targetAchieved}}</td>
+                                    <td>{{incStructureList.target}}</td>
+                                    <td>{{incStructureList.achievedPercentage}}</td>
+                                    <td>{{incStructureList.incentiveCategory}}</td>
+                                    <td>{{incStructureList.total}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table> 
+                       </div>
+
+                       <div class="row">
+                        <div class="col-md-9">
+
+                        </div>
+                        <div class="col-md-3">
+                         <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="exportAsSSP()">Export</button>
+                        </div>
+                     
+                       
+                    </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="OSP & SSP">
+                       
+                       <div class="row">
+                        <p-table [value]="calculatedIncentiveList"[paginator]="true" [rows]="5" class="pt-margin">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Dealer Code</th>
+                                    <th>Dealer Name</th>
+                                    <th>Product Type</th>
+                                    <th>Subproduct Type</th>
+                                    <th>No Of Claims Allowed 2</th>
+                                    <th>No Of Claims Allowed 3</th>
+                                    <th>No Of Claims Allowed 4</th>
+                                    <th>No of claims Allowed 7</th>
+                                    <th>Target Achieved</th>
+                                    <th>Target</th>
+                                    <th>Achieved Percentage</th>
+                                    <th>Incentive Category</th>
+                                    <th>Total</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-incStructureList>
+                                <tr>
+                                    <td>{{incStructureList.dealerCode}}</td>
+                                    <td>{{incStructureList.dealerName}}</td>
+                                    <td>{{incStructureList.productType}}</td>
+                                    <td>{{incStructureList.subProductType}}</td>
+                                    <td>{{incStructureList.noOfClaimsAllowed2}}</td>
+                                     <td>{{incStructureList.noOfClaimsAllowed3}}</td>
+                                    <td>{{incStructureList.noOfClaimsAllowed4}}</td>
+                                    <td>{{incStructureList.noOfClaimsAllowed7}}</td>
+                                    <td>{{incStructureList.targetAchieved}}</td>
+                                    <td>{{incStructureList.target}}</td>
+                                    <td>{{incStructureList.achievedPercentage}}</td>
+                                    <td>{{incStructureList.incentiveCategory}}</td>
+                                    <td>{{incStructureList.total}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table> 
+                       </div>
+
+                       <div class="row">
+                        <div class="col-md-9">
+
+                        </div>
+                        <div class="col-md-3">
+                         <button mat-raised-button  class="mr-15 pr-15 prd-btn" (click)="exportAsAll()">Export</button>
+                        </div>
+                    </div>
+                    </p-tabPanel>
+                </p-tabView>
     
               
             </div>
