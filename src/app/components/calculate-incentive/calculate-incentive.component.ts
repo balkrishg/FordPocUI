@@ -148,7 +148,7 @@ export class CalculateIncentiveComponent implements OnInit {
   this.calcIncentive.dealerCodes = this.selectedDealerCode;
   this.calcIncentive.programCodes = this.selectedProgramCode;
 
-    this.productService.getCalculativeIncentiveList(this.calcIncentive).subscribe((response)=>{
+    this.productService.getCalculativeIncentiveReportList(this.calcIncentive).subscribe((response)=>{
         this.calculatedIncentiveList = response;
 
     })
