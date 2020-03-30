@@ -63,7 +63,7 @@ export class CalculateIncentiveComponent implements OnInit {
             label:'',
             value: ''
           };
-          obj.label =  x.programName;
+          obj.label =  x.programCode + '-' + x.programName;
           obj.value = x.programCode;
       
           this.programCodeList.push(obj);
