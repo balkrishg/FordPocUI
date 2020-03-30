@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DropdownValue,CalcIncentive } from '../../models/product-rule';
+import { DropdownValue } from '../../models/product-rule';
+import {CalcIncentive, IncentiveList, Incentive} from '../../models/calc-incentive'
 import { ProductService } from '../../services/product.service';
 import {ExcelService} from '../../services/excel.service';
 
@@ -22,6 +23,10 @@ export class CalculateIncentiveComponent implements OnInit {
   dealerList : any [];
   selectedDealerCode: DropdownValue[];
   calculatedIncentiveList : any[];
+  sspIncentiveList : Incentive[];
+ospIncentiveList : Incentive[];
+
+enableReportBtn :Boolean = true;
 
   constructor(public productService: ProductService, 
     private excelService:ExcelService) { }
@@ -149,9 +154,127 @@ export class CalculateIncentiveComponent implements OnInit {
   this.calcIncentive.programCodes = this.selectedProgramCode;
 
     this.productService.getCalculativeIncentiveReportList(this.calcIncentive).subscribe((response)=>{
-        this.calculatedIncentiveList = response;
+      this.sspIncentiveList = response.SSP;
+       this.ospIncentiveList = response.OSP;
+      //  this.calculatedIncentiveList = response;
 
     })
+// let response = {
+
+//   "SSP": [
+
+//       {
+
+//           "id": 2,
+
+//           "dealerCode": "12000",
+
+//           "dealerName": "Lam Lukka",
+
+//           "programCode": "PC001",
+
+//           "subProductType": "SSP",
+
+//           "noOfClaimsAllowed2": 5,
+
+//           "noOfClaimsAllowed3": 8,
+
+//           "noOfClaimsAllowed4": 6,
+
+//           "noOfClaimsAllowed7": null,
+
+//           "targetAchieved": 19,
+
+//           "target": 12,
+
+//           "achievedPercentage": 158,
+
+//           "incentiveCategory": 100,
+
+//           "total": 4500,
+
+//           "dealerTargetMonth": "OCT19"
+
+//       }
+
+//   ],
+
+//   "OSP": [
+
+//       {
+
+//           "id": 1,
+
+//           "dealerCode": "12000",
+
+//           "dealerName": "Lam Lukka",
+
+//           "programCode": "PC001",
+
+//           "subProductType": "OSP",
+
+//           "noOfClaimsAllowed2": 24,
+
+//           "noOfClaimsAllowed3": 14,
+
+//           "noOfClaimsAllowed4": null,
+
+//           "noOfClaimsAllowed7": null,
+
+//           "targetAchieved": 38,
+
+//           "target": 40,
+
+//           "achievedPercentage": 95,
+
+//           "incentiveCategory": 0,
+
+//           "total": 3550,
+
+//           "dealerTargetMonth": "OCT19"
+
+//       },
+
+//       {
+
+//           "id": 3,
+
+//           "dealerCode": "12200",
+
+//           "dealerName": "Rattanathibet",
+
+//           "programCode": "PC001",
+
+//           "subProductType": "OSP",
+
+//           "noOfClaimsAllowed2": 29,
+
+//           "noOfClaimsAllowed3": 1,
+
+//           "noOfClaimsAllowed4": null,
+
+//           "noOfClaimsAllowed7": null,
+
+//           "targetAchieved": 30,
+
+//           "target": 28,
+
+//           "achievedPercentage": 107,
+
+//           "incentiveCategory": 100,
+
+//           "total": 4550,
+
+//           "dealerTargetMonth": "OCT19"
+
+//       }
+
+//   ]
+
+// }​
+
+// this.sspIncentiveList = response.SSP;
+// this.ospIncentiveList = response.OSP;
 
     // this.calculatedIncentiveList = [
 
@@ -351,16 +474,66 @@ export class CalculateIncentiveComponent implements OnInit {
     // ]​
   }
   exportAsOSP():void {
-    this.excelService.exportAsExcelFile(this.calculatedIncentiveList, 'osp');
+    let ospList = new Array<IncentiveList>();
+  
+    this.ospIncentiveList.forEach(x=>{
+      let osp = new IncentiveList();
+      osp.dealerName = x.dealerName;
+      osp.dealerCode = x.dealerCode;
+      osp.programCode = x.programCode;
+      osp.subProductType = x.subProductType;
+      osp.noOfClaimsAllowed2 = x.noOfClaimsAllowed2;
+      osp.noOfClaimsAllowed3 = x.noOfClaimsAllowed3;
+      osp.noOfClaimsAllowed4 = x.noOfClaimsAllowed4;
+      osp.noOfClaimsAllowed7 = x.noOfClaimsAllowed7;
+      osp.targetAchieved = x.targetAchieved;
+      osp.target = x.target;
+      osp.achievedPercentage = x.achievedPercentage;
+      osp.incentiveCategory = x.incentiveCategory;
+      osp.total = x.total;
+      osp.dealerTargetMonth = x.dealerTargetMonth;
+      ospList.push(osp);
+    })
+
+    this.excelService.exportAsExcelFile(ospList, 'osp');
   }
 
   
   exportAsSSP():void {
-    this.excelService.exportAsExcelFile(this.calculatedIncentiveList, 'ssp');
+
+    let sspList = new Array<IncentiveList>();
+  
+    this.ospIncentiveList.forEach(x=>{
+      let ssp = new IncentiveList();
+      ssp.dealerName = x.dealerName;
+      ssp.dealerCode = x.dealerCode;
+      ssp.programCode = x.programCode;
+      ssp.subProductType = x.subProductType;
+      ssp.noOfClaimsAllowed2 = x.noOfClaimsAllowed2;
+      ssp.noOfClaimsAllowed3 = x.noOfClaimsAllowed3;
+      ssp.noOfClaimsAllowed4 = x.noOfClaimsAllowed4;
+      ssp.noOfClaimsAllowed7 = x.noOfClaimsAllowed7;
+      ssp.targetAchieved = x.targetAchieved;
+      ssp.target = x.target;
+      ssp.achievedPercentage = x.achievedPercentage;
+      ssp.incentiveCategory = x.incentiveCategory;
+      ssp.total = x.total;
+      ssp.dealerTargetMonth = x.dealerTargetMonth;
+      sspList.push(ssp);
+    })
+
+    this.excelService.exportAsExcelFile(sspList, 'ssp');
   }
 
   exportAsAll():void {
     this.excelService.exportAsExcelFile(this.calculatedIncentiveList, 'osp&ssp');
   }
 
+  enableButton(event){
+    if(this.selectedProgramCode && this.selectedDealerCode){
+      this.enableReportBtn = false;
+    }else{
+      this.enableReportBtn = true;
+    }
+  }
 }

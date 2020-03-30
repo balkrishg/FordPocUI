@@ -48,7 +48,3 @@ export class DropdownValue{
     name: string;
 }
 
-export class CalcIncentive{
-    dealerCodes : any[];
-    programCodes : any[];
-}
