@@ -156,7 +156,7 @@ enableReportBtn :Boolean = true;
     this.productService.getCalculativeIncentiveReportList(this.calcIncentive).subscribe((response)=>{
       this.sspIncentiveList = response.SSP;
        this.ospIncentiveList = response.OSP;
-      //  this.calculatedIncentiveList = response;
+      this.calculatedIncentiveList = response.total;
 
     })
 // let response = {
@@ -503,7 +503,7 @@ enableReportBtn :Boolean = true;
 
     let sspList = new Array<IncentiveList>();
   
-    this.ospIncentiveList.forEach(x=>{
+    this.sspIncentiveList.forEach(x=>{
       let ssp = new IncentiveList();
       ssp.dealerName = x.dealerName;
       ssp.dealerCode = x.dealerCode;
@@ -526,7 +526,27 @@ enableReportBtn :Boolean = true;
   }
 
   exportAsAll():void {
-    this.excelService.exportAsExcelFile(this.calculatedIncentiveList, 'osp&ssp');
+    let totalList = new Array<IncentiveList>();
+  
+    this.calculatedIncentiveList.forEach(x=>{
+      let total = new IncentiveList();
+      total.dealerName = x.dealerName;
+      total.dealerCode = x.dealerCode;
+      total.programCode = x.programCode;
+      total.noOfClaimsAllowed2 = x.noOfClaimsAllowed2;
+      total.noOfClaimsAllowed3 = x.noOfClaimsAllowed3;
+      total.noOfClaimsAllowed4 = x.noOfClaimsAllowed4;
+      total.noOfClaimsAllowed7 = x.noOfClaimsAllowed7;
+      total.targetAchieved = x.targetAchieved;
+      total.target = x.target;
+      total.achievedPercentage = x.achievedPercentage;
+      total.incentiveCategory = x.incentiveCategory;
+      total.total = x.total;
+      total.dealerTargetMonth = x.dealerTargetMonth;
+      totalList.push(total);
+    })
+
+    this.excelService.exportAsExcelFile(totalList, 'totalincentive');
   }
 
   enableButton(event){
