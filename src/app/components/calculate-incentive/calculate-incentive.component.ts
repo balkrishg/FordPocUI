@@ -138,6 +138,60 @@ enableReportBtn :Boolean = true;
 //     this.dealerList.push(obj);
 //   }) 
 // } 
+
+
+// let procode = [
+
+//   {
+
+//       "programCode": "PC001",
+
+//       "programName": "Cash Incentive1",
+
+//       "dateFrom": "01-09-2019",
+
+//       "dateTo": "30-11-2019",
+
+//       "status": null,
+
+//       "statusMsg": null
+
+//   },
+
+//   {
+
+//       "programCode": "PC002",
+
+//       "programName": "Cash INc TEST",
+
+//       "dateFrom": "01-03-2020",
+
+//       "dateTo": "31-03-2020",
+
+//       "status": null,
+
+//       "statusMsg": null
+
+//   }
+
+// ]​
+
+
+// if(!this.programCodeList){
+//   this.programCodeList = [];
+// }
+// procode.forEach(x=>{
+//         let obj = {
+//           label:'',
+//           value: ''
+//         };
+//         obj.label =  x.programCode + '-' + x.programName;
+//         obj.value = x.programCode;
+    
+//         this.programCodeList.push(obj);
+//       });
+
+
   
 }
     
@@ -156,7 +210,7 @@ enableReportBtn :Boolean = true;
     this.productService.getCalculativeIncentiveReportList(this.calcIncentive).subscribe((response)=>{
       this.sspIncentiveList = response.SSP;
        this.ospIncentiveList = response.OSP;
-      this.calculatedIncentiveList = response.total;
+      this.calculatedIncentiveList = response.Total;
 
     })
 // let response = {
