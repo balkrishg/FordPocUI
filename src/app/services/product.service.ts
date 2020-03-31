@@ -12,8 +12,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
 
-  //private BASE_URL = 'http://fordpoc-env.eba-zmjtsxkc.us-east-1.elasticbeanstalk.com/api';
-  private BASE_URL = 'http://localhost:9090/api';
+  private BASE_URL = 'http://3.223.151.153:9090/api';
+  //private BASE_URL = 'http://localhost:9090/api';
 
 //save program
 
