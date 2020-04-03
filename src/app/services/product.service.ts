@@ -1,9 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Product} from '../models/product';
 import { Observable } from 'rxjs';
 import { ProductRule } from '../models/product-rule';
 
+
+// let headers: HttpHeaders = new HttpHeaders();
+// headers = headers.append('Access-Control-Allow-Origin: *', 'application/json');
+// headers = headers.append('access-control-allow-origin: *', 'charset=utf-8');
+
+const httpOptions = {
+  headers: new HttpHeaders({
+  // 'content-type': 'application/json',
+  'Access-Control-Allow-Origin': '*'
+  })
+  };
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +23,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
 
-  private BASE_URL = 'http://3.223.151.153:9090/api';
-  //private BASE_URL = 'http://localhost:9090/api';
+  //private BASE_URL = 'http://54.82.215.218:9090/api';
+  private BASE_URL = 'http://localhost:7070/api';
 
 //save program
 
