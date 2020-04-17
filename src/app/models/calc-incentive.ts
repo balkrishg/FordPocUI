@@ -2,6 +2,8 @@
 export class CalcIncentive{
     dealerCodes : any[];
     programCodes : any[];
+    incentiveFrom : string;
+    incentiveTo : string;
 }
 
 export class IncentiveList{
@@ -19,7 +21,10 @@ export class IncentiveList{
     incentiveCategory: number;
     total: number;
     dealerTargetMonth: string;
-
+    amountEarnedCA2 : number;
+    amountEarnedCA3: number;  
+    amountEarnedCA4 : number;
+    amountEarnedCA7 : number;
 }
 export class Incentive extends IncentiveList{
     id: Number;

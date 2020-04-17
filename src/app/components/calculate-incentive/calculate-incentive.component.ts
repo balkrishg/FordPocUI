@@ -28,6 +28,17 @@ ospIncentiveList : Incentive[];
 
 enableReportBtn :Boolean = true;
 
+prdToDate :Date;
+prdFromDate : Date;
+fromMonth: string ;
+toMonth: string ;
+fromDate : string;
+toDate: string;
+minDate : Date;
+
+
+
+
   constructor(public productService: ProductService, 
     private excelService:ExcelService) { }
 
@@ -206,6 +217,18 @@ enableReportBtn :Boolean = true;
     }
   this.calcIncentive.dealerCodes = this.selectedDealerCode;
   this.calcIncentive.programCodes = this.selectedProgramCode;
+
+  this.fromMonth = (this.prdFromDate.getMonth()+1).toString();
+    this.toMonth = (this.prdToDate.getMonth()+1).toString();
+
+    this.fromDate = this.prdFromDate.getDate().toString();
+    this.toDate = this.prdToDate.getDate().toString();
+
+    let dateFrom = (this.fromDate.length>1? this.fromDate : ('0'+this.fromDate)) + '-' + (this.fromMonth.length>1? this.fromMonth : ('0'+this.fromMonth)) + '-'+this.prdFromDate.getFullYear();
+    let dateTo = (this.toDate.length>1? this.toDate : ('0'+this.toDate)) + '-'+(this.toMonth.length >1? this.toMonth : ('0'+this.toMonth)) + '-' +this.prdToDate.getFullYear();
+    
+    this.calcIncentive.incentiveFrom = dateFrom;
+    this.calcIncentive.incentiveTo = dateTo;
 
     this.productService.getCalculativeIncentiveReportList(this.calcIncentive).subscribe((response)=>{
       this.sspIncentiveList = response.SSP;
