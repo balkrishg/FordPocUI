@@ -1,8 +1,9 @@
 export class Product {
-    programCode : string;
-    programName : string;
-    dateFrom : string;
-    dateTo : string;
+    programCode: string;
+    programName: string;
+    dateFrom: string;
+    dateTo: string;
+    payoutFrequency: string;
     // standardSSP : string = "false";
     // freeSSP     : string = "false";
     // flexiSSP    : string = "false";

@@ -1,9 +1,15 @@
 <div class="container">
     <p-card header="Incentive Program">
         <div class="row mt-20">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label  class="pr-15">Program Code:</label>
                 <input type="text" name="programCode"[(ngModel)]="product.programCode" placeholder="Program Code"/> 
+              
+            </div>
+            <div class="col-md-6">
+                <label  class="pr-15">Payout Frequency:</label>
+                <p-dropdown [options]="payoutFrequencyList" [(ngModel)]="product.payoutFrequency" placeholder="Select a Payout Frequencyy" 
+                 [showClear]="true" ></p-dropdown>
               
             </div>
             </div>

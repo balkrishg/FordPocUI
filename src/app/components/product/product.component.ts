@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 //import { Product } from '../models/product';
 import { Product } from '../../models/product';
-import {ProductService} from '../../services/product.service';
+import { ProductService } from '../../services/product.service';
 import { MessageService } from 'primeng/api'
 import { stringify } from 'querystring';
 
@@ -13,71 +13,73 @@ import { stringify } from 'querystring';
 export class ProductComponent implements OnInit {
 
 
-product :Product;
+  product: Product;
 
-fromMonth: string ;
-toMonth: string ;
-fromDate : string;
-toDate: string;
-prdToDate :Date;
-prdFromDate : Date;
-minDate : Date;
+  fromMonth: string;
+  toMonth: string;
+  fromDate: string;
+  toDate: string;
+  prdToDate: Date;
+  prdFromDate: Date;
+  minDate: Date;
+  payoutFrequencyList: any = [];
 
-  constructor(public productService : ProductService, private messageService : MessageService) 
-  {  
-    if(!this.product) {
+
+  constructor(public productService: ProductService, private messageService: MessageService) {
+    if (!this.product) {
       this.product = new Product();
     }
-    
+
   }
 
   ngOnInit(): void {
-    
+   // this.payoutFrequencyList = [{ name: 'Monthly', code: 'Monthly' },{ name: 'Quarterly', code: 'Quarterly' }, { name: 'Bi-Monthly', code: 'Bi-Monthly' }, { name: 'Yearly', code: 'Yearly' }];
+    this.payoutFrequencyList = [{ label: 'Monthly', value: 'Monthly' },{ label: 'Quarterly', value: 'Quarterly' }, { label: 'Bi-Monthly', value: 'Bi-Monthly' }, { label: 'Yearly', value: 'Yearly' }];
 
 
   }
 
-   saveIncentive(){
-    this.fromMonth = (this.prdFromDate.getMonth()+1).toString();
-    this.toMonth = (this.prdToDate.getMonth()+1).toString();
+  saveIncentive() {
+    this.fromMonth = (this.prdFromDate.getMonth() + 1).toString();
+    this.toMonth = (this.prdToDate.getMonth() + 1).toString();
 
     this.fromDate = this.prdFromDate.getDate().toString();
     this.toDate = this.prdToDate.getDate().toString();
 
-    let dateFrom = (this.fromDate.length>1? this.fromDate : ('0'+this.fromDate)) + '-' + (this.fromMonth.length>1? this.fromMonth : ('0'+this.fromMonth)) + '-'+this.prdFromDate.getFullYear();
-    let dateTo = (this.toDate.length>1? this.toDate : ('0'+this.toDate)) + '-'+(this.toMonth.length >1? this.toMonth : ('0'+this.toMonth)) + '-' +this.prdToDate.getFullYear();
-    
+    let dateFrom = (this.fromDate.length > 1 ? this.fromDate : ('0' + this.fromDate)) + '-' + (this.fromMonth.length > 1 ? this.fromMonth : ('0' + this.fromMonth)) + '-' + this.prdFromDate.getFullYear();
+    let dateTo = (this.toDate.length > 1 ? this.toDate : ('0' + this.toDate)) + '-' + (this.toMonth.length > 1 ? this.toMonth : ('0' + this.toMonth)) + '-' + this.prdToDate.getFullYear();
+
     this.product.dateFrom = dateFrom;
     this.product.dateTo = dateTo;
 
-    this.productService.saveIncentiveProgram(this.product).subscribe((response)=>{
-      if(response.status === "Success"){
+    this.productService.saveIncentiveProgram(this.product).subscribe((response) => {
+      if (response.status === "Success") {
         //console.log(response,"ha");
         this.clearIncentive();
         this.showSuccess();
       }
-     
+
     })
     console.log(this.product);
- 
-   }
-   
-   showSuccess() {
-    this.messageService.add({severity:'success', summary: 'Success !', detail:'Incentive program saved successful.'});
+
   }
 
-  cancelIncentive(){
+  showSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Success !', detail: 'Incentive program saved successful.' });
+  }
+
+  cancelIncentive() {
     this.clearIncentive();
   }
 
-  clearIncentive(){
+  clearIncentive() {
     this.product.programCode = null;
     this.product.programName = null;
     this.product.dateFrom = null;
     this.product.dateTo = null;
     this.prdFromDate = null;
     this.prdToDate = null;
-    
+
   }
 
 }

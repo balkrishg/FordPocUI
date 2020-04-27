@@ -8,7 +8,11 @@
             </div>
             <div class="col-md-6">
                 <label class="pr-15">From date:</label>
-                <p-calendar [(ngModel)]="prdFromDate" dateFormat="dd-mm-yy" [showIcon]="true"></p-calendar>
+                <p-dropdown [options]="month" [(ngModel)]="fromMonth" placeholder="Select " optionLabel="name"
+                [showClear]="true" ></p-dropdown>
+                 <p-dropdown [options]="year" [(ngModel)]="fromYear" placeholder="Select" 
+                 [showClear]="true" ></p-dropdown>
+                <!-- <p-calendar [(ngModel)]="prdFromDate" dateFormat="dd-mm-yy" [showIcon]="true"></p-calendar> -->
 
             </div>
 
@@ -18,15 +22,31 @@
 
             <div class="col-md-6">
                 <label class="pr-15 mt-10">Program Code:</label>
-                <p-multiSelect [options]="programCodeList" (onPanelHide)="enableButton($event)"
-                    [(ngModel)]="selectedProgramCode"></p-multiSelect>
+                <!-- <p-multiSelect [options]="programCodeList" (onPanelHide)="enableButton($event)" (onChange)="productTypeChange($event)"
+                    [(ngModel)]="selectedProgramCode"></p-multiSelect> -->
+                    <p-dropdown [options]="programCodeList" (onPanelHide)="enableButton($event)" (onChange)="programCodeChange($event)"
+                    [(ngModel)]="selectedProgramCode"></p-dropdown>
 
             </div>
             <div class="col-md-6">
                 <label class="pr-15">To date:</label>
-                <p-calendar [(ngModel)]="prdToDate" dateFormat="dd-mm-yy" [minDate]="prdFromDate" [showIcon]="true">
-                </p-calendar>
+                <p-dropdown [options]="month" [(ngModel)]="fromMonth" placeholder="Select " optionLabel="name" 
+                [showClear]="true" ></p-dropdown>
+                 <p-dropdown [options]="year" [(ngModel)]="fromYear" placeholder="Select" 
+                 [showClear]="true" ></p-dropdown>
+                <!-- <p-calendar [(ngModel)]="prdToDate" dateFormat="dd-mm-yy" [minDate]="prdFromDate" [showIcon]="true">
+                </p-calendar> -->
             </div>
+
+        </div>
+        <div class="row mt-50">
+
+            <div class="col-md-6">
+                <label class="pr-15 mt-10">Program Code:</label>
+                <input type="text" name="programCode"[(ngModel)]="payoutFrequency" placeholder="Program Code" [readonly]="true"/>
+
+            </div>
+          
 
         </div>
         <div class="row">
