@@ -11,10 +11,7 @@ import { stringify } from 'querystring';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-
-
   product: Product;
-
   fromMonth: string;
   toMonth: string;
   fromDate: string;
@@ -33,11 +30,8 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   // this.payoutFrequencyList = [{ name: 'Monthly', code: 'Monthly' },{ name: 'Quarterly', code: 'Quarterly' }, { name: 'Bi-Monthly', code: 'Bi-Monthly' }, { name: 'Yearly', code: 'Yearly' }];
-    this.payoutFrequencyList = [{ label: 'Monthly', value: 'Monthly' },{ label: 'Quarterly', value: 'Quarterly' }, { label: 'Bi-Monthly', value: 'Bi-Monthly' }, { label: 'Yearly', value: 'Yearly' }];
-
-
-  }
+       this.payoutFrequencyList = [{label:'Select', value:null},{ label: 'Monthly', value: 'Monthly' },{ label: 'Quarterly', value: 'Quarterly' }];
+ }
 
   saveIncentive() {
     this.fromMonth = (this.prdFromDate.getMonth() + 1).toString();

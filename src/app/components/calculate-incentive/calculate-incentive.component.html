@@ -1,60 +1,65 @@
-<div class="container">
+<div class="row">
+    <div class="col-md-12">
+<div >
     <p-card header="Incentive Calculation Report">
-        <div class="row mt-50">
+       
+
+
+        <div class="row mt-25">
             <div class="col-md-6">
                 <label class="pr-15 mt-10">Dealer Code:</label>
-                <p-multiSelect [options]="dealerList" (onPanelHide)="enableButton($event)"
+                <p-multiSelect [options]="dealerList" (onPanelHide)="enableButton($event)" (onChange)="dealerCodeChange($event)"
                     [(ngModel)]="selectedDealerCode"></p-multiSelect>
             </div>
-          
-
-        </div>
-
-        <div class="row mt-50">
-
             <div class="col-md-6">
-                <label class="pr-10 mt-10">Program Code:</label>
+                <label class="pr-15 mt-10">Program Code:</label>
                 <!-- <p-multiSelect [options]="programCodeList" (onPanelHide)="enableButton($event)" (onChange)="productTypeChange($event)"
                     [(ngModel)]="selectedProgramCode"></p-multiSelect> -->
                     <p-dropdown [options]="programCodeList"  (onChange)="programCodeChange($event)"
                     [(ngModel)]="selectedProgramCode"></p-dropdown>
 
             </div>
-           
+          
 
         </div>
-        <div class="row mt-50">
+
+        <div class="row mt-25">
 
             <div class="col-md-6">
-                <label class="pr-15 mt-10">Payout Frequency:</label>
+             <label class="pr-15 mt-10">Payout Frequency:</label>
                 <input type="text" name="programCode"[(ngModel)]="payoutFrequency" placeholder="Payout Frequency" [readonly]="true"/>
 
             </div>
           
 
         </div>
-        <div class="row mt-50">
-            <div class="col-md-6">
-                <label class="pr-15">From date:</label>
-                <p-dropdown [options]="month" [(ngModel)]="fromMonth" placeholder="Select " optionLabel="name"
-                [showClear]="true" ></p-dropdown>
-                 <p-dropdown class="yearDropdown" [options]="year" [(ngModel)]="fromYear" placeholder="Select" 
+        <div class="row mt-25">
+            <div class="col-md-6" *ngIf="payoutFrequency!=undefined">
+                <label class="pr-15">From:</label>
+                <p-dropdown  [options]="fromYearList" [(ngModel)]="fromYear" placeholder="Select" (onChange)="fromYearChange($event)"
                  [showClear]="true" ></p-dropdown>
+                <p-dropdown class="yearDropdown" [options]="month" [(ngModel)]="fromMonth" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Monthly'"
+                [showClear]="true" ></p-dropdown>
+                <p-dropdown class="yearDropdown" [options]="quarterly" [(ngModel)]="fromQuarterly" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Quarterly'"
+                [showClear]="true" ></p-dropdown>
+                 
                 <!-- <p-calendar [(ngModel)]="prdFromDate" dateFormat="dd-mm-yy" [showIcon]="true"></p-calendar> -->
 
             </div>
-        </div>
-        <div class="row mt-50">
-            <div class="col-md-6">
-                <label class="pr-15">To date:</label>
-                <p-dropdown  [options]="month" [(ngModel)]="toMonth" placeholder="Select " optionLabel="name" 
-                [showClear]="true" ></p-dropdown>
-                 <p-dropdown class="yearDropdown" [options]="year" [(ngModel)]="toYear" placeholder="Select" 
+            <div class="col-md-6" *ngIf="payoutFrequency!=undefined">
+                <label class="pr-15">To:</label>
+                <p-dropdown  [options]="toYearList" [(ngModel)]="toYear" placeholder="Select" [disabled]="disabled"
                  [showClear]="true" ></p-dropdown>
+                <p-dropdown class="yearDropdown" [options]="month" [(ngModel)]="toMonth" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Monthly'"
+                [showClear]="true" ></p-dropdown>
+                <p-dropdown class="yearDropdown" [options]="quarterly" [(ngModel)]="toQuarterly" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Quarterly'"
+                [showClear]="true" ></p-dropdown>
+                 
                 <!-- <p-calendar [(ngModel)]="prdToDate" dateFormat="dd-mm-yy" [minDate]="prdFromDate" [showIcon]="true">
                 </p-calendar> -->
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-9">
 
@@ -66,215 +71,215 @@
 
             </div>
         </div>
+        <p-toast [style]="{marginTop: '80px'}"></p-toast>
+      
+       
+       
+    </p-card>
+</div>
+</div>
+</div>
+<div class="row" id="">
+    <div class="col-md-12">
+        <div class="pt-margin">
+            <strong>Calculated Incentives</strong>
 
-        <div class="row">
-            <div class="pt-margin">
-                <strong>Calculated Incentives</strong>
+        </div>
+    </div>
+    <p-tabView class="tab-margin">
+        <p-tabPanel header="OSP">
+            <div class="row">
+                <div class="col-md-9">
+
+                </div>
+                <div class="col-md-3">
+                    <button mat-raised-button class="mr-15 pr-15 prd-btn" (click)="exportAsOSP()">Export OSP
+                        Incentive Report</button>
+                </div>
 
             </div>
-        </div>
-        <div class="row">
+            <div class="row">
+                <p-table [value]="ospIncentiveList" [paginator]="true" [rows]="10" [scrollable]="true"
+                    scrollHeight="350px" class="pt-margin">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Dealer Code</th>
+                            <th>Dealer Name</th>
+                            <th>Program Code</th>
+                            <th>Subproduct Type</th>
+                            <th>No Of Claims Allowed 2</th>
+                            <th>No Of Claims Allowed 3</th>
+                            <th>No Of Claims Allowed 4</th>
+                            <th>No of claims Allowed 7</th>
+                            <th>Target Achieved</th>
+                            <th>Target</th>
+                            <th>Achieved Percentage</th>
+                            <th>Incentive Category</th>
+
+                            <th>Total Amount for No Of Claims Allowed 2</th>
+                            <th>Total Amount for No Of Claims Allowed 3</th>
+                            <th>Total Amount for No Of Claims Allowed 4</th>
+                            <th>Total Amount for No of claims Allowed 7</th>
+                            <th>Total</th>
+                            <th>Incentive Month</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-incStructureList>
+                        <tr>
+                            <td>{{incStructureList.dealerCode}}</td>
+                            <td>{{incStructureList.dealerName}}</td>
+                            <td>{{incStructureList.programCode}}</td>
+                            <td>{{incStructureList.subProductType}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed2}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed3}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed4}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed7}}</td>
+                            <td>{{incStructureList.targetAchieved}}</td>
+                            <td>{{incStructureList.target}}</td>
+                            <td>{{incStructureList.achievedPercentage}}</td>
+                            <td>{{incStructureList.incentiveCategory}}</td>
+                            <td>{{incStructureList.amountEarnedCA2}}</td>
+                            <td>{{incStructureList.amountEarnedCA3}}</td>
+                            <td>{{incStructureList.amountEarnedCA4}}</td>
+                            <td>{{incStructureList.amountEarnedCA7}}</td>
+                            <td>{{incStructureList.total}}</td>
+                            <td>{{incStructureList.incentiveMonth}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
 
 
+        </p-tabPanel>
+        <p-tabPanel header="SSP">
+            <div class="row">
+                <div class="col-md-9">
 
-        </div>
-        <div class="row" id="">
-            <p-tabView class="tab-margin">
-                <p-tabPanel header="OSP">
-                    <div class="row">
-                        <div class="col-md-9">
-
-                        </div>
-                        <div class="col-md-3">
-                            <button mat-raised-button class="mr-15 pr-15 prd-btn" (click)="exportAsOSP()">Export OSP
-                                Incentive Report</button>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <p-table [value]="ospIncentiveList" [paginator]="true" [rows]="10" [scrollable]="true"
-                            scrollHeight="350px" class="pt-margin">
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>Dealer Code</th>
-                                    <th>Dealer Name</th>
-                                    <th>Program Code</th>
-                                    <th>Subproduct Type</th>
-                                    <th>No Of Claims Allowed 2</th>
-                                    <th>No Of Claims Allowed 3</th>
-                                    <th>No Of Claims Allowed 4</th>
-                                    <th>No of claims Allowed 7</th>
-                                    <th>Target Achieved</th>
-                                    <th>Target</th>
-                                    <th>Achieved Percentage</th>
-                                    <th>Incentive Category</th>
-
-                                    <th>Total Amount for No Of Claims Allowed 2</th>
-                                    <th>Total Amount for No Of Claims Allowed 3</th>
-                                    <th>Total Amount for No Of Claims Allowed 4</th>
-                                    <th>Total Amount for No of claims Allowed 7</th>
-                                    <th>Total</th>
-                                    <th>Incentive Month</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-incStructureList>
-                                <tr>
-                                    <td>{{incStructureList.dealerCode}}</td>
-                                    <td>{{incStructureList.dealerName}}</td>
-                                    <td>{{incStructureList.programCode}}</td>
-                                    <td>{{incStructureList.subProductType}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed2}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed3}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed4}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed7}}</td>
-                                    <td>{{incStructureList.targetAchieved}}</td>
-                                    <td>{{incStructureList.target}}</td>
-                                    <td>{{incStructureList.achievedPercentage}}</td>
-                                    <td>{{incStructureList.incentiveCategory}}</td>
-                                    <td>{{incStructureList.amountEarnedCA2}}</td>
-                                    <td>{{incStructureList.amountEarnedCA3}}</td>
-                                    <td>{{incStructureList.amountEarnedCA4}}</td>
-                                    <td>{{incStructureList.amountEarnedCA7}}</td>
-                                    <td>{{incStructureList.total}}</td>
-                                    <td>{{incStructureList.incentiveMonth}}</td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button mat-raised-button class="mr-15 pr-15 prd-btn" (click)="exportAsSSP()">Export SSP
+                        Incentive Report</button>
+                </div>
 
 
-                </p-tabPanel>
-                <p-tabPanel header="SSP">
-                    <div class="row">
-                        <div class="col-md-9">
+            </div>
+            <div class="row">
+                <p-table [value]="sspIncentiveList" [paginator]="true" [rows]="10" [scrollable]="true"
+                    scrollHeight="350px" class="pt-margin">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Dealer Code</th>
+                            <th>Dealer Name</th>
+                            <th>Program Code</th>
+                            <th>Subproduct Type</th>
+                            <th>No Of Claims Allowed 2</th>
+                            <th>No Of Claims Allowed 3</th>
+                            <th>No Of Claims Allowed 4</th>
+                            <th>No of claims Allowed 7</th>
+                            <th>Target Achieved</th>
+                            <th>Target</th>
+                            <th>Achieved Percentage</th>
+                            <th>Incentive Category</th>
 
-                        </div>
-                        <div class="col-md-3">
-                            <button mat-raised-button class="mr-15 pr-15 prd-btn" (click)="exportAsSSP()">Export SSP
-                                Incentive Report</button>
-                        </div>
-
-
-                    </div>
-                    <div class="row">
-                        <p-table [value]="sspIncentiveList" [paginator]="true" [rows]="10" [scrollable]="true"
-                            scrollHeight="350px" class="pt-margin">
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>Dealer Code</th>
-                                    <th>Dealer Name</th>
-                                    <th>Program Code</th>
-                                    <th>Subproduct Type</th>
-                                    <th>No Of Claims Allowed 2</th>
-                                    <th>No Of Claims Allowed 3</th>
-                                    <th>No Of Claims Allowed 4</th>
-                                    <th>No of claims Allowed 7</th>
-                                    <th>Target Achieved</th>
-                                    <th>Target</th>
-                                    <th>Achieved Percentage</th>
-                                    <th>Incentive Category</th>
-
-                                    <th>Total Amount for No Of Claims Allowed 2</th>
-                                    <th>Total Amount for No Of Claims Allowed 3</th>
-                                    <th>Total Amount for No Of Claims Allowed 4</th>
-                                    <th>Total Amount for No of claims Allowed 7</th>
-                                    <th>Total</th>
-                                    <th>Incentive Month</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-incStructureList>
-                                <tr>
-                                    <td>{{incStructureList.dealerCode}}</td>
-                                    <td>{{incStructureList.dealerName}}</td>
-                                    <td>{{incStructureList.programCode}}</td>
-                                    <td>{{incStructureList.subProductType}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed2}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed3}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed4}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed7}}</td>
-                                    <td>{{incStructureList.targetAchieved}}</td>
-                                    <td>{{incStructureList.target}}</td>
-                                    <td>{{incStructureList.achievedPercentage}}</td>
-                                    <td>{{incStructureList.incentiveCategory}}</td>
-                                    <td>{{incStructureList.amountEarnedCA2}}</td>
-                                    <td>{{incStructureList.amountEarnedCA3}}</td>
-                                    <td>{{incStructureList.amountEarnedCA4}}</td>
-                                    <td>{{incStructureList.amountEarnedCA7}}</td>
-                                    <td>{{incStructureList.total}}</td>
-                                    <td>{{incStructureList.dealerTargetPeriod}}</td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
+                            <th>Total Amount for No Of Claims Allowed 2</th>
+                            <th>Total Amount for No Of Claims Allowed 3</th>
+                            <th>Total Amount for No Of Claims Allowed 4</th>
+                            <th>Total Amount for No of claims Allowed 7</th>
+                            <th>Total</th>
+                            <th>Incentive Month</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-incStructureList>
+                        <tr>
+                            <td>{{incStructureList.dealerCode}}</td>
+                            <td>{{incStructureList.dealerName}}</td>
+                            <td>{{incStructureList.programCode}}</td>
+                            <td>{{incStructureList.subProductType}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed2}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed3}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed4}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed7}}</td>
+                            <td>{{incStructureList.targetAchieved}}</td>
+                            <td>{{incStructureList.target}}</td>
+                            <td>{{incStructureList.achievedPercentage}}</td>
+                            <td>{{incStructureList.incentiveCategory}}</td>
+                            <td>{{incStructureList.amountEarnedCA2}}</td>
+                            <td>{{incStructureList.amountEarnedCA3}}</td>
+                            <td>{{incStructureList.amountEarnedCA4}}</td>
+                            <td>{{incStructureList.amountEarnedCA7}}</td>
+                            <td>{{incStructureList.total}}</td>
+                            <td>{{incStructureList.dealerTargetPeriod}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
 
 
-                </p-tabPanel>
-                <p-tabPanel header="Total Incentives">
-                    <div class="row">
-                        <div class="col-md-9">
+        </p-tabPanel>
+        <p-tabPanel header="Total Incentives">
+            <div class="row">
+                <div class="col-md-9">
 
-                        </div>
-                        <div class="col-md-3">
-                            <button mat-raised-button class="mr-15 pr-15 prd-btn" (click)="exportAsAll()">Export Total
-                                Incentives</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <p-table [value]="calculatedIncentiveList" [paginator]="true" [rows]="10" [scrollable]="true"
-                            scrollHeight="350px" class="pt-margin">
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>Dealer Code</th>
-                                    <th>Dealer Name</th>
-                                    <th>Program Code</th>
-                                    <th>No Of Claims Allowed 2</th>
-                                    <th>No Of Claims Allowed 3</th>
-                                    <th>No Of Claims Allowed 4</th>
-                                    <th>No of claims Allowed 7</th>
-                                    <!-- <th>Target Achieved</th>
-                                    <th>Target</th>
-                                    <th>Achieved Percentage</th> -->
-                                    <!-- <th>Incentive Category</th> -->
+                </div>
+                <div class="col-md-3">
+                    <button mat-raised-button class="mr-15 pr-15 prd-btn" (click)="exportAsAll()">Export Total
+                        Incentives</button>
+                </div>
+            </div>
+            <div class="row">
+                <p-table [value]="calculatedIncentiveList" [paginator]="true" [rows]="10" [scrollable]="true"
+                    scrollHeight="350px" class="pt-margin">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Dealer Code</th>
+                            <th>Dealer Name</th>
+                            <th>Program Code</th>
+                            <th>No Of Claims Allowed 2</th>
+                            <th>No Of Claims Allowed 3</th>
+                            <th>No Of Claims Allowed 4</th>
+                            <th>No of claims Allowed 7</th>
+                            <!-- <th>Target Achieved</th>
+                            <th>Target</th>
+                            <th>Achieved Percentage</th> -->
+                            <!-- <th>Incentive Category</th> -->
 
-                                    <th>Total Amount for No Of Claims Allowed 2</th>
-                                    <th>Total Amount for No Of Claims Allowed 3</th>
-                                    <th>Total Amount for No Of Claims Allowed 4</th>
-                                    <th>Total Amount for No of claims Allowed 7</th>
-                                    <th>Total</th>
-                                    <th>Incentive Month</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-incStructureList>
-                                <tr>
-                                    <td>{{incStructureList.dealerCode}}</td>
-                                    <td>{{incStructureList.dealerName}}</td>
-                                    <td>{{incStructureList.programCode}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed2}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed3}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed4}}</td>
-                                    <td>{{incStructureList.noOfClaimsAllowed7}}</td>
-                                    <!-- <td>{{incStructureList.targetAchieved}}</td>
-                                    <td>{{incStructureList.target}}</td>
-                                    <td>{{incStructureList.achievedPercentage}}</td>
-                                    <td>{{incStructureList.incentiveCategory}}</td> -->
-                                    <td>{{incStructureList.amountEarnedCA2}}</td>
-                                    <td>{{incStructureList.amountEarnedCA3}}</td>
-                                    <td>{{incStructureList.amountEarnedCA4}}</td>
-                                    <td>{{incStructureList.amountEarnedCA7}}</td>
-                                    <td>{{incStructureList.total}}</td>
-                                    <td>{{incStructureList.dealerTargetPeriod}}</td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
-
-
-                </p-tabPanel>
-            </p-tabView>
+                            <th>Total Amount for No Of Claims Allowed 2</th>
+                            <th>Total Amount for No Of Claims Allowed 3</th>
+                            <th>Total Amount for No Of Claims Allowed 4</th>
+                            <th>Total Amount for No of claims Allowed 7</th>
+                            <th>Total</th>
+                            <th>Incentive Month</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-incStructureList>
+                        <tr>
+                            <td>{{incStructureList.dealerCode}}</td>
+                            <td>{{incStructureList.dealerName}}</td>
+                            <td>{{incStructureList.programCode}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed2}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed3}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed4}}</td>
+                            <td>{{incStructureList.noOfClaimsAllowed7}}</td>
+                            <!-- <td>{{incStructureList.targetAchieved}}</td>
+                            <td>{{incStructureList.target}}</td>
+                            <td>{{incStructureList.achievedPercentage}}</td>
+                            <td>{{incStructureList.incentiveCategory}}</td> -->
+                            <td>{{incStructureList.amountEarnedCA2}}</td>
+                            <td>{{incStructureList.amountEarnedCA3}}</td>
+                            <td>{{incStructureList.amountEarnedCA4}}</td>
+                            <td>{{incStructureList.amountEarnedCA7}}</td>
+                            <td>{{incStructureList.total}}</td>
+                            <td>{{incStructureList.dealerTargetPeriod}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
 
 
-        </div>
-    </p-card>
+        </p-tabPanel>
+    </p-tabView>
+
+
 </div>
 
 

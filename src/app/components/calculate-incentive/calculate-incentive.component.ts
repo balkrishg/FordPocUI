@@ -3,7 +3,7 @@ import { DropdownValue } from '../../models/product-rule';
 import { CalcIncentive, IncentiveList, Incentive } from '../../models/calc-incentive'
 import { ProductService } from '../../services/product.service';
 import { ExcelService } from '../../services/excel.service';
-
+import { MessageService } from 'primeng/api'
 @Component({
   selector: 'app-calculate-incentive',
   templateUrl: './calculate-incentive.component.html',
@@ -37,18 +37,25 @@ export class CalculateIncentiveComponent implements OnInit {
   minDate: Date;
   payoutFrequency: string;
   month: any = [];
-  year: any = [];
+  fromYearList: any = [];
+  toYearList: any = [];
+  quarterly:any=[];
+  fromQuarterly:any={};
+  toQuarterly:any={}
   fromYear: string;
   toYear: string;
 
 
 
 
-  constructor(public productService: ProductService, private excelService: ExcelService) { }
+  constructor(public productService: ProductService, private excelService: ExcelService,private messageService:MessageService) { }
 
   ngOnInit(): void {
-    this.month = [{ name: "January", code: "JAN" }, { name: "February", code: "FEB" }, { name: "March", code: "MAR" }, { name: "April", code: "APR" }, { name: "May", code: "MAY" } ,{ name: "June", code: "JUN" },{ name: "July", code: "JUL" },{ name: "August", code: "AUG" },{ name: "September", code: "SEP" },{ name: "October", code: "OCT" },{ name: "November", code: "NOV" },{ name: "December", code: "DEC" }];
-    this.year = [{ label: 2015, value: 2015 }, { label: 2016, value: 2016 }, { label: 2017, value: 2017 }, { label: 2018, value: 2018 }, { label: 2019, value: 2019 }, { label: 2020, value: 2020 }];
+    console.log(this.payoutFrequency);
+    this.month = [{ name: "Select Month", code: null,id:'' },{ name: "January", code: "JAN",id:1 }, { name: "February", code: "FEB" ,id:2}, { name: "March", code: "MAR",id:3 }, { name: "April", code: "APR",id:4 }, { name: "May", code: "MAY",id:5 } ,{ name: "June", code: "JUN",id:6},{ name: "July", code: "JUL" ,id:7},{ name: "August", code: "AUG",id:8 },{ name: "September", code: "SEP",id:9 },{ name: "October", code: "OCT",id:10 },{ name: "November", code: "NOV",id:11 },{ name: "December", code: "DEC",id:12}];
+    this.fromYearList = [{ label: "Select Year", value: null },{ label: "2015", value: "2015" }, { label: "2016", value: "2016" }, { label: "2017", value: "2017" }, { label: "2018", value: "2018" }, { label: "2019", value: "2019" }, { label: "2020", value: "2020" }];
+    this.toYearList = [{ label: "Select Year", value: null ,disabled:false},{ label: "2015", value: "2015",disabled:false }, { label: "2016", value: "2016" ,disabled:false}, { label: "2017", value: "2017" ,disabled:false}, { label: "2018", value: "2018",disabled:false }, { label: "2019", value: "2019" ,disabled:false}, { label: "2020", value: "2020",disabled:false }];
+    this.quarterly=[{name:"Select",code:null,id:''},{name:"Q1",code:"Q1",id:3},{name:"Q2",code:"Q2",id:6},{name:"Q3",code:"Q3",id:9},{name:"Q4",code:"Q4",id:12}]
     // To get Dealer Code list on Load
     this.productService.getAllDealerList().subscribe((response) => {
       if (response && response.length) {
@@ -78,7 +85,7 @@ export class CalculateIncentiveComponent implements OnInit {
       const codeList = [];
       if (response && response.length) {
         //  this.programCodeList = response;
-
+       this.programCodeList=[{label:"Select",value:null}];
         response.forEach(x => {
           const obj = {
             label: '',
@@ -222,17 +229,51 @@ export class CalculateIncentiveComponent implements OnInit {
     }
     this.calcIncentive.dealerCodes = this.selectedDealerCode;
     this.calcIncentive.programCode = this.selectedProgramCode;
+    let fromDate = '';
+    let toDate = '' ;
+    if(this.payoutFrequency==='Monthly'){
+      var lastDayOfFRomMonth = new Date(parseInt(this.fromYear), parseInt(this.fromMonth.id)-1 , 1).getTime();
+      console.log(lastDayOfFRomMonth);
+      var lastDayOfToMonth = new Date(parseInt(this.toYear), parseInt(this.toMonth.id)-1 , 1).getTime();
+      console.log(lastDayOfToMonth);
+      if(lastDayOfToMonth>lastDayOfFRomMonth){
+        console.log(1);
+        fromDate=this.fromMonth.code;
+        toDate=this.toMonth.code;
+      }else{
+        this.showError('From Date should be less than To Date');
+        return 
+      }
+    }
+    if(this.payoutFrequency==='Quarterly'){
+      var lastDayOfFRomMonth = new Date(parseInt(this.fromYear), parseInt(this.fromQuarterly.id)-1 , 1).getTime();
+      console.log(lastDayOfFRomMonth);
+      var lastDayOfToMonth = new Date(parseInt(this.toYear), parseInt(this.toQuarterly.id)-1 , 1).getTime();
+      console.log(lastDayOfToMonth);
+      if(lastDayOfToMonth>lastDayOfFRomMonth){
+        fromDate=this.fromQuarterly.code;
+        toDate=this.toQuarterly.code;
+        console.log(1);
+      }else{
+        this.showError('From Date should be less than To Date');
+        return 
+      }
+    }
     //this.calcIncentive.payoutFrequency=this.payoutFrequency;
-    const fromDate = this.fromMonth.code + this.fromYear;
-    const toDate = this.toMonth.code + this.toYear;
+    
     // const dateFrom = (this.fromDate.length > 1 ? this.fromDate : ('0' + this.fromDate)) + '-' + (this.fromMonth.length > 1 ? this.fromMonth : ('0' + this.fromMonth)) + '-' + this.prdFromDate.getFullYear();
     // const dateTo = (this.toDate.length > 1 ? this.toDate : ('0' + this.toDate)) + '-' + (this.toMonth.length > 1 ? this.toMonth : ('0' + this.toMonth)) + '-' + this.prdToDate.getFullYear();
-    this.calcIncentive.incentiveFromMonth = fromDate;
-    this.calcIncentive.incentiveToMonth= toDate;
+    this.calcIncentive.incentiveFrom = fromDate;
+    this.calcIncentive.incentiveTo= toDate;
+    this.calcIncentive.incentiveFromYear = this.fromYear;
+    this.calcIncentive.incentiveToYear= this.toYear;
     this.productService.getCalculativeIncentiveReportList(this.calcIncentive).subscribe((response) => {
-      this.sspIncentiveList = response.SSP;
-      this.ospIncentiveList = response.OSP;
-      this.calculatedIncentiveList = response.Total;
+      this.sspIncentiveList = response.report.SSP;
+      this.ospIncentiveList = response.report.OSP;
+      this.calculatedIncentiveList = response.report.Total;
+      if(response.report.errorMessage!=undefined && response.report.errorMessage!=null){
+        this.showError(response.report.errorMessage);
+      }
 
     });
     // let response = {
@@ -626,6 +667,7 @@ export class CalculateIncentiveComponent implements OnInit {
   }
 
   enableButton(event) {
+   
     if (this.selectedProgramCode && this.selectedDealerCode) {
       this.enableReportBtn = false;
     } else {
@@ -634,11 +676,54 @@ export class CalculateIncentiveComponent implements OnInit {
   }
   programCodeChange(event) {
     console.log(event);
+    this.payoutFrequency=null;
+    this.fromMonth={ name: "Select Month", code: null };
+    this.toQuarterly={name:"Select",code:null};
+    this.fromQuarterly={name:"Select",code:null};
+    this.fromYear=null;
+    this.toMonth={ name: "Select Month", code: null };
+    this.toYear=null;
+    if(event.value!==null){
     this.productService.getIncentiveProgram(event.value).subscribe((response) => {
     console.log(response);
     this.payoutFrequency=response.payoutFrequency;
+    this.payoutFrequency="Monthly";
+    //this.payoutFrequency="Quarterly";
     this.enableButton(event);
 
     });
+  }
+  }
+  dealerCodeChange(event){
+    this.selectedProgramCode=null;
+    this.payoutFrequency=null;
+   this.fromMonth={ name: "Select Month", code: null };
+   this.fromYear=null;
+   this.toMonth={ name: "Select Month", code: null };
+   this.toYear=null;
+  }
+  showError(msg) {
+    this.messageService.add({ severity: 'error', summary: 'Error !', detail: msg });
+  }
+  fromYearChange(event){
+    const fromYear=event.value;
+    if(fromYear !=undefined && fromYear !=null){
+      this.toYearList.forEach(x => {
+        if(x.value >= fromYear ){
+x.disabled=false;
+        }else{
+          x.disabled=true;
+        }
+        
+      });
+
+    }
+  }
+  enableReport():boolean{
+if(this.selectedProgramCode && this.selectedDealerCode && (this.fromMonth || this.fromQuarterly) && this.fromYear && (this.toMonth || this.toQuarterly) ){
+return true;  
+}else{
+  return false;
+}
   }
 }
