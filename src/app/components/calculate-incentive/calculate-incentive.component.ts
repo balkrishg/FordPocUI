@@ -706,6 +706,7 @@ export class CalculateIncentiveComponent implements OnInit {
     this.messageService.add({ severity: 'error', summary: 'Error !', detail: msg });
   }
   fromYearChange(event){
+    this.toYear=null;
     const fromYear=event.value;
     if(fromYear !=undefined && fromYear !=null){
       this.toYearList.forEach(x => {

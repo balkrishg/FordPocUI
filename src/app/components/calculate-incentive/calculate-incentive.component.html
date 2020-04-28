@@ -48,7 +48,7 @@
             </div>
             <div class="col-md-6" *ngIf="payoutFrequency!=undefined">
                 <label class="pr-15">To:</label>
-                <p-dropdown  [options]="toYearList" [(ngModel)]="toYear" placeholder="Select" [disabled]="disabled"
+                <p-dropdown  [options]="toYearList" [(ngModel)]="toYear" placeholder="Select" 
                  [showClear]="true" ></p-dropdown>
                 <p-dropdown class="yearDropdown" [options]="month" [(ngModel)]="toMonth" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Monthly'"
                 [showClear]="true" ></p-dropdown>
