@@ -6,48 +6,54 @@
                 <p-multiSelect [options]="dealerList" (onPanelHide)="enableButton($event)"
                     [(ngModel)]="selectedDealerCode"></p-multiSelect>
             </div>
-            <div class="col-md-6">
-                <label class="pr-15">From date:</label>
-                <p-dropdown [options]="month" [(ngModel)]="fromMonth" placeholder="Select " optionLabel="name"
-                [showClear]="true" ></p-dropdown>
-                 <p-dropdown [options]="year" [(ngModel)]="fromYear" placeholder="Select" 
-                 [showClear]="true" ></p-dropdown>
-                <!-- <p-calendar [(ngModel)]="prdFromDate" dateFormat="dd-mm-yy" [showIcon]="true"></p-calendar> -->
-
-            </div>
+          
 
         </div>
 
         <div class="row mt-50">
 
             <div class="col-md-6">
-                <label class="pr-15 mt-10">Program Code:</label>
+                <label class="pr-10 mt-10">Program Code:</label>
                 <!-- <p-multiSelect [options]="programCodeList" (onPanelHide)="enableButton($event)" (onChange)="productTypeChange($event)"
                     [(ngModel)]="selectedProgramCode"></p-multiSelect> -->
-                    <p-dropdown [options]="programCodeList" (onPanelHide)="enableButton($event)" (onChange)="programCodeChange($event)"
+                    <p-dropdown [options]="programCodeList"  (onChange)="programCodeChange($event)"
                     [(ngModel)]="selectedProgramCode"></p-dropdown>
 
             </div>
-            <div class="col-md-6">
-                <label class="pr-15">To date:</label>
-                <p-dropdown [options]="month" [(ngModel)]="fromMonth" placeholder="Select " optionLabel="name" 
-                [showClear]="true" ></p-dropdown>
-                 <p-dropdown [options]="year" [(ngModel)]="fromYear" placeholder="Select" 
-                 [showClear]="true" ></p-dropdown>
-                <!-- <p-calendar [(ngModel)]="prdToDate" dateFormat="dd-mm-yy" [minDate]="prdFromDate" [showIcon]="true">
-                </p-calendar> -->
-            </div>
+           
 
         </div>
         <div class="row mt-50">
 
             <div class="col-md-6">
-                <label class="pr-15 mt-10">Program Code:</label>
-                <input type="text" name="programCode"[(ngModel)]="payoutFrequency" placeholder="Program Code" [readonly]="true"/>
+                <label class="pr-15 mt-10">Payout Frequency:</label>
+                <input type="text" name="programCode"[(ngModel)]="payoutFrequency" placeholder="Payout Frequency" [readonly]="true"/>
 
             </div>
           
 
+        </div>
+        <div class="row mt-50">
+            <div class="col-md-6">
+                <label class="pr-15">From date:</label>
+                <p-dropdown [options]="month" [(ngModel)]="fromMonth" placeholder="Select " optionLabel="name"
+                [showClear]="true" ></p-dropdown>
+                 <p-dropdown class="yearDropdown" [options]="year" [(ngModel)]="fromYear" placeholder="Select" 
+                 [showClear]="true" ></p-dropdown>
+                <!-- <p-calendar [(ngModel)]="prdFromDate" dateFormat="dd-mm-yy" [showIcon]="true"></p-calendar> -->
+
+            </div>
+        </div>
+        <div class="row mt-50">
+            <div class="col-md-6">
+                <label class="pr-15">To date:</label>
+                <p-dropdown  [options]="month" [(ngModel)]="toMonth" placeholder="Select " optionLabel="name" 
+                [showClear]="true" ></p-dropdown>
+                 <p-dropdown class="yearDropdown" [options]="year" [(ngModel)]="toYear" placeholder="Select" 
+                 [showClear]="true" ></p-dropdown>
+                <!-- <p-calendar [(ngModel)]="prdToDate" dateFormat="dd-mm-yy" [minDate]="prdFromDate" [showIcon]="true">
+                </p-calendar> -->
+            </div>
         </div>
         <div class="row">
             <div class="col-md-9">

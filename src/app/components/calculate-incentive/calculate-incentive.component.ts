@@ -17,7 +17,7 @@ export class CalculateIncentiveComponent implements OnInit {
   // productType: any[];
   // noOfContracts: any[];
   programCodeList: any[];
-  selectedProgramCode: DropdownValue[];
+  selectedProgramCode: string;
   calcIncentive: CalcIncentive;
 
   dealerList: any[];
@@ -30,8 +30,8 @@ export class CalculateIncentiveComponent implements OnInit {
 
   prdToDate: Date;
   prdFromDate: Date;
-  fromMonth: string;
-  toMonth: string;
+  fromMonth: any={};
+  toMonth: any={};
   fromDate: any = {};
   toDate: any = {};
   minDate: Date;
@@ -222,8 +222,9 @@ export class CalculateIncentiveComponent implements OnInit {
     }
     this.calcIncentive.dealerCodes = this.selectedDealerCode;
     this.calcIncentive.programCodes = this.selectedProgramCode;
-    const fromDate = this.fromDate.code + this.fromYear;
-    const toDate = this.toDate.code + this.toYear;
+    this.calcIncentive.payoutFrequency=this.payoutFrequency;
+    const fromDate = this.fromMonth.code + this.fromYear;
+    const toDate = this.toMonth.code + this.toYear;
     // const dateFrom = (this.fromDate.length > 1 ? this.fromDate : ('0' + this.fromDate)) + '-' + (this.fromMonth.length > 1 ? this.fromMonth : ('0' + this.fromMonth)) + '-' + this.prdFromDate.getFullYear();
     // const dateTo = (this.toDate.length > 1 ? this.toDate : ('0' + this.toDate)) + '-' + (this.toMonth.length > 1 ? this.toMonth : ('0' + this.toMonth)) + '-' + this.prdToDate.getFullYear();
     this.calcIncentive.incentiveFrom = fromDate;
@@ -633,8 +634,9 @@ export class CalculateIncentiveComponent implements OnInit {
   }
   programCodeChange(event) {
     console.log(event);
-    this.productService.getIncentiveProgram(this.calcIncentive).subscribe((response) => {
+    this.productService.getIncentiveProgram(event.value).subscribe((response) => {
     console.log(response);
+    this.enableButton(event);
 
     });
   }

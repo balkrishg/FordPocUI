@@ -1,9 +1,10 @@
 
 export class CalcIncentive {
     dealerCodes: any[];
-    programCodes: any[];
+    programCodes: string;
     incentiveFrom: string;
     incentiveTo: string;
+    payoutFrequency:string;
 }
 
 export class IncentiveList {
