@@ -227,8 +227,8 @@ export class CalculateIncentiveComponent implements OnInit {
     const toDate = this.toMonth.code + this.toYear;
     // const dateFrom = (this.fromDate.length > 1 ? this.fromDate : ('0' + this.fromDate)) + '-' + (this.fromMonth.length > 1 ? this.fromMonth : ('0' + this.fromMonth)) + '-' + this.prdFromDate.getFullYear();
     // const dateTo = (this.toDate.length > 1 ? this.toDate : ('0' + this.toDate)) + '-' + (this.toMonth.length > 1 ? this.toMonth : ('0' + this.toMonth)) + '-' + this.prdToDate.getFullYear();
-    this.calcIncentive.incentiveFrom = fromDate;
-    this.calcIncentive.incentiveTo = toDate;
+    this.calcIncentive.incentiveFromMonth = fromDate;
+    this.calcIncentive.incentiveToMonth= toDate;
     this.productService.getCalculativeIncentiveReportList(this.calcIncentive).subscribe((response) => {
       this.sspIncentiveList = response.SSP;
       this.ospIncentiveList = response.OSP;

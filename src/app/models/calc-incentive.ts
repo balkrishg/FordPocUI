@@ -2,8 +2,8 @@
 export class CalcIncentive {
     dealerCodes: any[];
     programCode: string;
-    incentiveFrom: string;
-    incentiveTo: string;
+    incentiveFromMonth: string;
+    incentiveToMonth: string;
     
 }
 
