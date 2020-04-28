@@ -221,7 +221,7 @@ export class CalculateIncentiveComponent implements OnInit {
       this.calcIncentive = new CalcIncentive();
     }
     this.calcIncentive.dealerCodes = this.selectedDealerCode;
-    this.calcIncentive.programCodes = this.selectedProgramCode;
+    this.calcIncentive.programCode = this.selectedProgramCode;
     this.calcIncentive.payoutFrequency=this.payoutFrequency;
     const fromDate = this.fromMonth.code + this.fromYear;
     const toDate = this.toMonth.code + this.toYear;
