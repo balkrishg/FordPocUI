@@ -26,7 +26,7 @@ export class IncentiveList {
     amountEarnedCA3: number;
     amountEarnedCA4: number;
     amountEarnedCA7: number;
-    incentiveMonth: string;
+    dealerTargetPeriod: string;
 }
 export class Incentive extends IncentiveList {
     id: number;
