@@ -636,6 +636,7 @@ export class CalculateIncentiveComponent implements OnInit {
     console.log(event);
     this.productService.getIncentiveProgram(event.value).subscribe((response) => {
     console.log(response);
+    this.payoutFrequency=response.payoutFrequency;
     this.enableButton(event);
 
     });
