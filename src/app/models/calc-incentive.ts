@@ -4,7 +4,7 @@ export class CalcIncentive {
     programCode: string;
     incentiveFrom: string;
     incentiveTo: string;
-    payoutFrequency:string;
+    
 }
 
 export class IncentiveList {

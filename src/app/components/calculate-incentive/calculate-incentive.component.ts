@@ -222,7 +222,7 @@ export class CalculateIncentiveComponent implements OnInit {
     }
     this.calcIncentive.dealerCodes = this.selectedDealerCode;
     this.calcIncentive.programCode = this.selectedProgramCode;
-    this.calcIncentive.payoutFrequency=this.payoutFrequency;
+    //this.calcIncentive.payoutFrequency=this.payoutFrequency;
     const fromDate = this.fromMonth.code + this.fromYear;
     const toDate = this.toMonth.code + this.toYear;
     // const dateFrom = (this.fromDate.length > 1 ? this.fromDate : ('0' + this.fromDate)) + '-' + (this.fromMonth.length > 1 ? this.fromMonth : ('0' + this.fromMonth)) + '-' + this.prdFromDate.getFullYear();
