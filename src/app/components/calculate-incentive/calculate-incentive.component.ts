@@ -4,6 +4,7 @@ import { CalcIncentive, IncentiveList, Incentive } from '../../models/calc-incen
 import { ProductService } from '../../services/product.service';
 import { ExcelService } from '../../services/excel.service';
 import { MessageService } from 'primeng/api'
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-calculate-incentive',
   templateUrl: './calculate-incentive.component.html',
@@ -11,11 +12,6 @@ import { MessageService } from 'primeng/api'
 })
 export class CalculateIncentiveComponent implements OnInit {
 
-  // selectedProductType: DropdownValue;
-  // selectedNofContracts: DropdownValue;
-
-  // productType: any[];
-  // noOfContracts: any[];
   programCodeList: any[];
   selectedProgramCode: string;
   calcIncentive: CalcIncentive;
@@ -44,14 +40,42 @@ export class CalculateIncentiveComponent implements OnInit {
   toQuarterly:any={}
   fromYear: string;
   toYear: string;
+  incentiveCalculationForm: FormGroup;
 
 
 
-
-  constructor(public productService: ProductService, private excelService: ExcelService,private messageService:MessageService) { }
+  constructor(private formBuilder: FormBuilder,public productService: ProductService, private excelService: ExcelService,private messageService:MessageService) { }
 
   ngOnInit(): void {
-    console.log(this.payoutFrequency);
+
+    this.incentiveCalculationForm = new FormGroup({
+      selectedDealerCode: new FormControl([]),
+      selectedProgramCode:new FormControl('',Validators.required),
+      payoutFrequency:new FormControl('',Validators.required),
+      fromYear: new FormControl('',Validators.required),
+      toYear: new FormControl('',Validators.required),
+      fromMonth: new FormControl('',Validators.required),
+      toMonth: new FormControl('',Validators.required),
+      fromQuarterly: new FormControl('',Validators.required),
+      toQuarterly: new FormControl('',Validators.required),
+     
+  });
+  this.incentiveCalculationForm.get("payoutFrequency").valueChanges.subscribe((value) => {
+        if(value === 'Monthly') {
+      this.payoutFrequency='Monthly';
+      this.incentiveCalculationForm.get("fromMonth").enable();
+    this.incentiveCalculationForm.get("toMonth").enable();
+    this.incentiveCalculationForm.get("fromQuarterly").disable();
+    this.incentiveCalculationForm.get("toQuarterly").disable();
+    } else if (value === 'Quarterly') {
+      this.payoutFrequency='Quarterly';
+      this.incentiveCalculationForm.get("fromMonth").disable();
+    this.incentiveCalculationForm.get("toMonth").disable();
+    this.incentiveCalculationForm.get("fromQuarterly").enable();
+    this.incentiveCalculationForm.get("toQuarterly").enable();
+    }
+});
+    console.log(this.incentiveCalculationForm.get('payoutFrequency').value);
     this.month = [{ name: "Select Month", code: null,id:'' },{ name: "January", code: "JAN",id:1 }, { name: "February", code: "FEB" ,id:2}, { name: "March", code: "MAR",id:3 }, { name: "April", code: "APR",id:4 }, { name: "May", code: "MAY",id:5 } ,{ name: "June", code: "JUN",id:6},{ name: "July", code: "JUL" ,id:7},{ name: "August", code: "AUG",id:8 },{ name: "September", code: "SEP",id:9 },{ name: "October", code: "OCT",id:10 },{ name: "November", code: "NOV",id:11 },{ name: "December", code: "DEC",id:12}];
     this.fromYearList = [{ label: "Select Year", value: null },{ label: "2015", value: "2015" }, { label: "2016", value: "2016" }, { label: "2017", value: "2017" }, { label: "2018", value: "2018" }, { label: "2019", value: "2019" }, { label: "2020", value: "2020" }];
     this.toYearList = [{ label: "Select Year", value: null ,disabled:false},{ label: "2015", value: "2015",disabled:false }, { label: "2016", value: "2016" ,disabled:false}, { label: "2017", value: "2017" ,disabled:false}, { label: "2018", value: "2018",disabled:false }, { label: "2019", value: "2019" ,disabled:false}, { label: "2020", value: "2020",disabled:false }];
@@ -101,137 +125,25 @@ export class CalculateIncentiveComponent implements OnInit {
 
     });
 
-    //   let dealerName =  [
-
-    //         {
-
-    //             "label": "Lam Lukka",
-
-    //             "value": "12000"
-
-    //         },
-
-    //         {
-
-    //             "label": "Rattanathibet",
-
-    //             "value": "12200"
-
-    //         },
-
-    //         {
-
-    //             "label": "Ratchapruek",
-
-    //             "value": "14600"
-
-    //         },
-
-    //         {
-
-    //             "label": "NARA - Suwintawong",
-
-    //             "value": "15300"
-
-    //         },
-
-    //         {
-
-    //             "label": "Laksi-Ramintra",
-
-    //             "value": "15900"
-
-    //         }​
-
-
-    //     ]
-    // if(dealerName.length){
-
-    //   if(!this.dealerList){
-    //     this.dealerList = [];
-    //   }
-    //   dealerName.forEach(x=>{
-    //     let obj = {
-    //       label:'',
-    //       value: ''
-    //     };
-    //     obj.label =  x.value + '-' + x.label;
-    //     obj.value = x.value;
-
-    //     this.dealerList.push(obj);
-    //   }) 
-    // } 
-
-
-    // let procode = [
-
-    //   {
-
-    //       "programCode": "PC001",
-
-    //       "programName": "Cash Incentive1",
-
-    //       "dateFrom": "01-09-2019",
-
-    //       "dateTo": "30-11-2019",
-
-    //       "status": null,
-
-    //       "statusMsg": null
-
-    //   },
-
-    //   {
-
-    //       "programCode": "PC002",
-
-    //       "programName": "Cash INc TEST",
-
-    //       "dateFrom": "01-03-2020",
-
-    //       "dateTo": "31-03-2020",
-
-    //       "status": null,
-
-    //       "statusMsg": null
-
-    //   }
-
-    // ]​
-
-
-    // if(!this.programCodeList){
-    //   this.programCodeList = [];
-    // }
-    // procode.forEach(x=>{
-    //         let obj = {
-    //           label:'',
-    //           value: ''
-    //         };
-    //         obj.label =  x.programCode + '-' + x.programName;
-    //         obj.value = x.programCode;
-
-    //         this.programCodeList.push(obj);
-    //       });
-
-
 
   }
-
-
-
-
 
   calculateIncentive() {
 
     if (!this.calcIncentive) {
       this.calcIncentive = new CalcIncentive();
     }
-    this.calcIncentive.dealerCodes = this.selectedDealerCode;
-    this.calcIncentive.programCode = this.selectedProgramCode;
+    this.calcIncentive.dealerCodes = this.incentiveCalculationForm.controls['selectedDealerCode'].value; 
+    this.calcIncentive.programCode = this.incentiveCalculationForm.controls['selectedProgramCode'].value;
     let fromDate = '';
     let toDate = '' ;
+    this.fromYear=this.incentiveCalculationForm.controls['fromYear'].value; 
+    this.toYear=this.incentiveCalculationForm.controls['toYear'].value;
     if(this.payoutFrequency==='Monthly'){
+   
+      this.fromMonth=this.incentiveCalculationForm.controls['fromMonth'].value; 
+     
+      this.toMonth=this.incentiveCalculationForm.controls['toMonth'].value; 
       console.log(new Date(parseInt(this.fromYear), parseInt(this.fromMonth.id)-1 , 1));
       console.log(new Date(parseInt(this.fromYear), parseInt(this.fromMonth.id) , 0));
       var firstDayOfFRomMonth = new Date(parseInt(this.fromYear), parseInt(this.fromMonth.id)-1 , 1).getTime();
@@ -248,6 +160,9 @@ export class CalculateIncentiveComponent implements OnInit {
       }
     }
     if(this.payoutFrequency==='Quarterly'){
+     
+      this.fromQuarterly=this.incentiveCalculationForm.controls['fromQuarterly'].value; 
+      this.toQuarterly=this.incentiveCalculationForm.controls['toQuarterly'].value; 
       var lastDayOfFRomMonth = new Date(parseInt(this.fromYear), parseInt(this.fromQuarterly.id)-1 , 1).getTime();
       console.log(lastDayOfFRomMonth);
       var lastDayOfToMonth = new Date(parseInt(this.toYear), parseInt(this.toQuarterly.id) , 0).getTime();
@@ -278,319 +193,7 @@ export class CalculateIncentiveComponent implements OnInit {
       }
 
     });
-    // let response = {
-
-    //   "SSP": [
-
-    //       {
-
-    //           "id": 2,
-
-    //           "dealerCode": "12000",
-
-    //           "dealerName": "Lam Lukka",
-
-    //           "programCode": "PC001",
-
-    //           "subProductType": "SSP",
-
-    //           "noOfClaimsAllowed2": 5,
-
-    //           "noOfClaimsAllowed3": 8,
-
-    //           "noOfClaimsAllowed4": 6,
-
-    //           "noOfClaimsAllowed7": null,
-
-    //           "targetAchieved": 19,
-
-    //           "target": 12,
-
-    //           "achievedPercentage": 158,
-
-    //           "incentiveCategory": 100,
-
-    //           "total": 4500,
-
-    //           "dealerTargetMonth": "OCT19"
-
-    //       }
-
-    //   ],
-
-    //   "OSP": [
-
-    //       {
-
-    //           "id": 1,
-
-    //           "dealerCode": "12000",
-
-    //           "dealerName": "Lam Lukka",
-
-    //           "programCode": "PC001",
-
-    //           "subProductType": "OSP",
-
-    //           "noOfClaimsAllowed2": 24,
-
-    //           "noOfClaimsAllowed3": 14,
-
-    //           "noOfClaimsAllowed4": null,
-
-    //           "noOfClaimsAllowed7": null,
-
-    //           "targetAchieved": 38,
-
-    //           "target": 40,
-
-    //           "achievedPercentage": 95,
-
-    //           "incentiveCategory": 0,
-
-    //           "total": 3550,
-
-    //           "dealerTargetMonth": "OCT19"
-
-    //       },
-
-    //       {
-
-    //           "id": 3,
-
-    //           "dealerCode": "12200",
-
-    //           "dealerName": "Rattanathibet",
-
-    //           "programCode": "PC001",
-
-    //           "subProductType": "OSP",
-
-    //           "noOfClaimsAllowed2": 29,
-
-    //           "noOfClaimsAllowed3": 1,
-
-    //           "noOfClaimsAllowed4": null,
-
-    //           "noOfClaimsAllowed7": null,
-
-    //           "targetAchieved": 30,
-
-    //           "target": 28,
-
-    //           "achievedPercentage": 107,
-
-    //           "incentiveCategory": 100,
-
-    //           "total": 4550,
-
-    //           "dealerTargetMonth": "OCT19"
-
-    //       }
-
-    //   ]
-
-    // }​
-
-    // this.sspIncentiveList = response.SSP;
-    // this.ospIncentiveList = response.OSP;
-
-    // this.calculatedIncentiveList = [
-
-    //   {
-
-    //       "id": 7,
-
-    //       "dealerCode": "41700",
-
-    //       "dealerName": "Sakolnakorn",
-
-    //       "productType": "Schedule Service",
-
-    //       "subProductType": "SSP",
-
-    //       "noOfClaimsAllowed2": "1",
-
-    //       "noOfClaimsAllowed3": null,
-
-    //       "noOfClaimsAllowed4": "2",
-
-    //       "noOfClaimsAllowed7": null,
-
-    //       "targetAchieved": "3",
-
-    //       "target": "3",
-
-    //       "achievedPercentage": "100.0",
-
-    //       "incentiveCategory": "100%",
-
-    //       "total": "900"
-
-    //   },
-
-    //   {
-
-    //       "id": 8,
-
-    //       "dealerCode": "41700",
-
-    //       "dealerName": "Sakolnakorn",
-
-    //       "productType": "Schedule Service",
-
-    //       "subProductType": "OSP",
-
-    //       "noOfClaimsAllowed2": "32",
-
-    //       "noOfClaimsAllowed3": null,
-
-    //       "noOfClaimsAllowed4": null,
-
-    //       "noOfClaimsAllowed7": null,
-
-    //       "targetAchieved": "32",
-
-    //       "target": "28",
-
-    //       "achievedPercentage": "114.0",
-
-    //       "incentiveCategory": "100%",
-
-    //       "total": "4800"
-
-    //   },
-
-    //   {
-
-    //       "id": 9,
-
-    //       "dealerCode": "14200",
-
-    //       "dealerName": "Petchkasem",
-
-    //       "productType": "Schedule Service",
-
-    //       "subProductType": "SSP",
-
-    //       "noOfClaimsAllowed2": null,
-
-    //       "noOfClaimsAllowed3": null,
-
-    //       "noOfClaimsAllowed4": "4",
-
-    //       "noOfClaimsAllowed7": "1",
-
-    //       "targetAchieved": "5",
-
-    //       "target": "15",
-
-    //       "achievedPercentage": "33.0",
-
-    //       "incentiveCategory": "0%",
-
-    //       "total": "1200"
-
-    //   },
-
-    //   {
-
-    //       "id": 10,
-
-    //       "dealerCode": "14200",
-
-    //       "dealerName": "Petchkasem",
-
-    //       "productType": "Schedule Service",
-
-    //       "subProductType": "OSP",
-
-    //       "noOfClaimsAllowed2": "50",
-
-    //       "noOfClaimsAllowed3": "3",
-
-    //       "noOfClaimsAllowed4": null,
-
-    //       "noOfClaimsAllowed7": null,
-
-    //       "targetAchieved": null,
-
-    //       "target": "0",
-
-    //       "achievedPercentage": "0.0",
-
-    //       "incentiveCategory": "0%",
-
-    //       "total": "8100"
-
-    //   },
-
-    //   {
-
-    //       "id": 11,
-
-    //       "dealerCode": "13200",
-
-    //       "dealerName": "Sukhumvit 62",
-
-    //       "productType": "Schedule Service",
-
-    //       "subProductType": "SSP",
-
-    //       "noOfClaimsAllowed2": "2",
-
-    //       "noOfClaimsAllowed3": "2",
-
-    //       "noOfClaimsAllowed4": null,
-
-    //       "noOfClaimsAllowed7": "1",
-
-    //       "targetAchieved": "5",
-
-    //       "target": "7",
-
-    //       "achievedPercentage": "71.0",
-
-    //       "incentiveCategory": "0%",
-
-    //       "total": "700"
-
-    //   },
-
-    //   {
-
-    //       "id": 12,
-
-    //       "dealerCode": "13200",
-
-    //       "dealerName": "Sukhumvit 62",
-
-    //       "productType": "Schedule Service",
-
-    //       "subProductType": "OSP",
-
-    //       "noOfClaimsAllowed2": "19",
-
-    //       "noOfClaimsAllowed3": "3",
-
-    //       "noOfClaimsAllowed4": null,
-
-    //       "noOfClaimsAllowed7": null,
-
-    //       "targetAchieved": "22",
-
-
-    //       "target": "140",
-
-    //       "achievedPercentage": "16.0",
-
-    //       "incentiveCategory": "0%",
-
-    //       "total": "1800"
-
-    //   }
-
-    // ]​
+   
   }
   exportAsOSP(): void {
     let ospList = new Array<IncentiveList>();
@@ -668,41 +271,37 @@ export class CalculateIncentiveComponent implements OnInit {
     this.excelService.exportAsExcelFile(totalList, 'totalincentive');
   }
 
-  enableButton(event) {
-   
-    if (this.selectedProgramCode && this.selectedDealerCode) {
-      this.enableReportBtn = false;
-    } else {
-      this.enableReportBtn = true;
-    }
-  }
   programCodeChange(event) {
     console.log(event);
-    this.payoutFrequency=null;
-    this.fromMonth={ name: "Select Month", code: null };
-    this.toQuarterly={name:"Select",code:null};
-    this.fromQuarterly={name:"Select",code:null};
-    this.fromYear=null;
-    this.toMonth={ name: "Select Month", code: null };
-    this.toYear=null;
+    this.incentiveCalculationForm.controls['payoutFrequency'].setValue(null);
+    this.incentiveCalculationForm.controls['fromMonth'].setValue({ name: "Select Month", code: null });
+    this.incentiveCalculationForm.controls['fromQuarterly'].setValue({name:"Select",code:null});
+    this.incentiveCalculationForm.controls['toMonth'].setValue({ name: "Select Month", code: null });
+    this.incentiveCalculationForm.controls['toQuarterly'].setValue({name:"Select",code:null});
+    this.incentiveCalculationForm.controls['fromYear'].setValue(null);
+    this.incentiveCalculationForm.controls['toYear'].setValue(null);
+    
     if(event.value!==null){
     this.productService.getIncentiveProgram(event.value).subscribe((response) => {
     console.log(response);
     this.payoutFrequency=response.payoutFrequency;
-   // this.payoutFrequency="Monthly";
-    this.payoutFrequency="Quarterly";
-    this.enableButton(event);
-
+    this.incentiveCalculationForm.controls['payoutFrequency'].setValue(this.payoutFrequency);
+    this.incentiveCalculationForm.controls['payoutFrequency'].setValue('Quarterly');
+   // this.incentiveCalculationForm.controls['payoutFrequency'].setValue('Monthly');
+   
     });
   }
   }
   dealerCodeChange(event){
-    this.selectedProgramCode=null;
-    this.payoutFrequency=null;
-   this.fromMonth={ name: "Select Month", code: null };
-   this.fromYear=null;
-   this.toMonth={ name: "Select Month", code: null };
-   this.toYear=null;
+ 
+    this.incentiveCalculationForm.controls['selectedProgramCode'].setValue(null);
+    this.incentiveCalculationForm.controls['payoutFrequency'].setValue(null);
+    this.incentiveCalculationForm.controls['fromMonth'].setValue({ name: "Select Month", code: null });
+    this.incentiveCalculationForm.controls['fromQuarterly'].setValue({name:"Select",code:null});
+    this.incentiveCalculationForm.controls['toMonth'].setValue({ name: "Select Month", code: null });
+    this.incentiveCalculationForm.controls['toQuarterly'].setValue({name:"Select",code:null});
+    this.incentiveCalculationForm.controls['fromYear'].setValue(null);
+    this.incentiveCalculationForm.controls['toYear'].setValue(null);
   }
   showError(msg) {
     this.messageService.add({ severity: 'error', summary: 'Error !', detail: msg });
@@ -722,11 +321,5 @@ x.disabled=false;
 
     }
   }
-  enableReport():boolean{
-if(this.selectedProgramCode && this.selectedDealerCode && (this.fromMonth || this.fromQuarterly) && this.fromYear && (this.toMonth || this.toQuarterly) ){
-return true;  
-}else{
-  return false;
-}
-  }
+  
 }

@@ -3,20 +3,20 @@
 <div >
     <p-card header="Incentive Calculation Report">
        
-
+        <form [formGroup]="incentiveCalculationForm" (ngSubmit)="calculateIncentive()">
 
         <div class="row mt-25">
             <div class="col-md-6">
                 <label class="pr-15 mt-10">Dealer Code:</label>
-                <p-multiSelect [options]="dealerList" (onPanelHide)="enableButton($event)" (onChange)="dealerCodeChange($event)"
-                    [(ngModel)]="selectedDealerCode"></p-multiSelect>
+                <p-multiSelect [options]="dealerList" (onChange)="dealerCodeChange($event)"
+                formControlName="selectedDealerCode"></p-multiSelect>
             </div>
             <div class="col-md-6">
                 <label class="pr-15 mt-10">Program Code:</label>
                 <!-- <p-multiSelect [options]="programCodeList" (onPanelHide)="enableButton($event)" (onChange)="productTypeChange($event)"
                     [(ngModel)]="selectedProgramCode"></p-multiSelect> -->
                     <p-dropdown [options]="programCodeList"  (onChange)="programCodeChange($event)"
-                    [(ngModel)]="selectedProgramCode"></p-dropdown>
+                    formControlName="selectedProgramCode"></p-dropdown>
 
             </div>
           
@@ -27,7 +27,7 @@
 
             <div class="col-md-6">
              <label class="pr-15 mt-10">Payout Frequency:</label>
-                <input type="text" name="programCode"[(ngModel)]="payoutFrequency" placeholder="Payout Frequency" [readonly]="true"/>
+                <input type="text" name="programCode" formControlName="payoutFrequency" placeholder="Payout Frequency" [readonly]="true"/>
 
             </div>
           
@@ -36,11 +36,11 @@
         <div class="row mt-25">
             <div class="col-md-6" *ngIf="payoutFrequency!=undefined">
                 <label class="pr-15">From:</label>
-                <p-dropdown  [options]="fromYearList" [(ngModel)]="fromYear" placeholder="Select" (onChange)="fromYearChange($event)"
+                <p-dropdown  [options]="fromYearList" formControlName="fromYear" placeholder="Select" (onChange)="fromYearChange($event)"
                  [showClear]="true" ></p-dropdown>
-                <p-dropdown class="yearDropdown" [options]="month" [(ngModel)]="fromMonth" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Monthly'"
+                <p-dropdown class="yearDropdown" [options]="month" formControlName="fromMonth" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Monthly'"
                 [showClear]="true" ></p-dropdown>
-                <p-dropdown class="yearDropdown" [options]="quarterly" [(ngModel)]="fromQuarterly" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Quarterly'"
+                <p-dropdown class="yearDropdown" [options]="quarterly" formControlName="fromQuarterly" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Quarterly'"
                 [showClear]="true" ></p-dropdown>
                  
                 <!-- <p-calendar [(ngModel)]="prdFromDate" dateFormat="dd-mm-yy" [showIcon]="true"></p-calendar> -->
@@ -48,11 +48,11 @@
             </div>
             <div class="col-md-6" *ngIf="payoutFrequency!=undefined">
                 <label class="pr-15">To:</label>
-                <p-dropdown  [options]="toYearList" [(ngModel)]="toYear" placeholder="Select" 
+                <p-dropdown  [options]="toYearList" formControlName="toYear" placeholder="Select" 
                  [showClear]="true" ></p-dropdown>
-                <p-dropdown class="yearDropdown" [options]="month" [(ngModel)]="toMonth" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Monthly'"
+                <p-dropdown class="yearDropdown" [options]="month" formControlName="toMonth" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Monthly'"
                 [showClear]="true" ></p-dropdown>
-                <p-dropdown class="yearDropdown" [options]="quarterly" [(ngModel)]="toQuarterly" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Quarterly'"
+                <p-dropdown class="yearDropdown" [options]="quarterly" formControlName="toQuarterly" placeholder="Select " optionLabel="name" *ngIf="payoutFrequency==='Quarterly'"
                 [showClear]="true" ></p-dropdown>
                  
                 <!-- <p-calendar [(ngModel)]="prdToDate" dateFormat="dd-mm-yy" [minDate]="prdFromDate" [showIcon]="true">
@@ -66,11 +66,12 @@
             </div>
             <div class="col-md-3 btns">
 
-                <button mat-raised-button class="mr-15 pr-15 prd-btn" [disabled]="enableReportBtn"
-                    (click)="calculateIncentive()">Get Reports</button>
+                <button mat-raised-button class="mr-15 pr-15 prd-btn" [disabled]="!incentiveCalculationForm.valid"
+                   >Get Reports</button>
 
             </div>
         </div>
+        </form>
         <p-toast [style]="{marginTop: '80px'}"></p-toast>
       
        
