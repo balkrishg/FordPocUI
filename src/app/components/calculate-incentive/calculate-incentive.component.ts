@@ -232,11 +232,13 @@ export class CalculateIncentiveComponent implements OnInit {
     let fromDate = '';
     let toDate = '' ;
     if(this.payoutFrequency==='Monthly'){
-      var lastDayOfFRomMonth = new Date(parseInt(this.fromYear), parseInt(this.fromMonth.id)-1 , 1).getTime();
-      console.log(lastDayOfFRomMonth);
-      var lastDayOfToMonth = new Date(parseInt(this.toYear), parseInt(this.toMonth.id)-1 , 1).getTime();
+      console.log(new Date(parseInt(this.fromYear), parseInt(this.fromMonth.id)-1 , 1));
+      console.log(new Date(parseInt(this.fromYear), parseInt(this.fromMonth.id) , 0));
+      var firstDayOfFRomMonth = new Date(parseInt(this.fromYear), parseInt(this.fromMonth.id)-1 , 1).getTime();
+      console.log(firstDayOfFRomMonth);
+      var lastDayOfToMonth = new Date(parseInt(this.toYear), parseInt(this.toMonth.id) , 0).getTime();
       console.log(lastDayOfToMonth);
-      if(lastDayOfToMonth>lastDayOfFRomMonth){
+      if(lastDayOfToMonth>firstDayOfFRomMonth){
         console.log(1);
         fromDate=this.fromMonth.code;
         toDate=this.toMonth.code;
@@ -248,7 +250,7 @@ export class CalculateIncentiveComponent implements OnInit {
     if(this.payoutFrequency==='Quarterly'){
       var lastDayOfFRomMonth = new Date(parseInt(this.fromYear), parseInt(this.fromQuarterly.id)-1 , 1).getTime();
       console.log(lastDayOfFRomMonth);
-      var lastDayOfToMonth = new Date(parseInt(this.toYear), parseInt(this.toQuarterly.id)-1 , 1).getTime();
+      var lastDayOfToMonth = new Date(parseInt(this.toYear), parseInt(this.toQuarterly.id) , 0).getTime();
       console.log(lastDayOfToMonth);
       if(lastDayOfToMonth>lastDayOfFRomMonth){
         fromDate=this.fromQuarterly.code;
@@ -687,8 +689,8 @@ export class CalculateIncentiveComponent implements OnInit {
     this.productService.getIncentiveProgram(event.value).subscribe((response) => {
     console.log(response);
     this.payoutFrequency=response.payoutFrequency;
-    this.payoutFrequency="Monthly";
-    //this.payoutFrequency="Quarterly";
+   // this.payoutFrequency="Monthly";
+    this.payoutFrequency="Quarterly";
     this.enableButton(event);
 
     });
