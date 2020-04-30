@@ -41,7 +41,8 @@ export class CalculateIncentiveComponent implements OnInit {
   fromYear: string;
   toYear: string;
   incentiveCalculationForm: FormGroup;
-
+info: any[];
+showInfo:boolean = false;
 
 
   constructor(private formBuilder: FormBuilder,public productService: ProductService, private excelService: ExcelService,private messageService:MessageService) { }
@@ -189,7 +190,9 @@ export class CalculateIncentiveComponent implements OnInit {
       this.ospIncentiveList = response.report.OSP;
       this.calculatedIncentiveList = response.report.Total;
       if(response.errorMessages != undefined && response.errorMessages != null){
-        this.showWarning(response.errorMessages);
+        this.showInfo = true;
+        this.info = response.errorMessages;
+       // this.showWarning(response.errorMessages);
       }
 
     });
@@ -285,6 +288,8 @@ export class CalculateIncentiveComponent implements OnInit {
 
   programCodeChange(event) {
     console.log(event);
+    this.showInfo = false;
+    this.info = null;
     this.incentiveCalculationForm.controls['payoutFrequency'].setValue(null);
     this.incentiveCalculationForm.controls['fromMonth'].setValue({ name: "Select Month", code: null });
     this.incentiveCalculationForm.controls['fromQuarterly'].setValue({name:"Select",code:null});
@@ -296,7 +301,6 @@ export class CalculateIncentiveComponent implements OnInit {
     if(event.value!==null){
     this.productService.getIncentiveProgram(event.value).subscribe((response) => {
     console.log(response);
-    debugger;
     this.payoutFrequency=response.payoutFrequency;
     this.incentiveCalculationForm.controls['payoutFrequency'].setValue(this.payoutFrequency);
    // this.incentiveCalculationForm.controls['payoutFrequency'].setValue('Quarterly');

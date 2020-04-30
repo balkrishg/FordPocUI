@@ -84,9 +84,21 @@
     <div class="col-md-12">
         <div class="pt-margin">
             <strong>Calculated Incentives</strong>
+            <div *ngIf="showInfo">
+                <div>
+                    <strong>Info:</strong>
 
+                </div>
+                <div *ngFor="let i of info">
+                    <div>
+                        {{i}}
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
+
     <p-tabView class="tab-margin">
         <p-tabPanel header="OSP">
             <div class="row">
