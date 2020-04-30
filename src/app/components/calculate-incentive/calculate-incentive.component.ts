@@ -188,8 +188,8 @@ export class CalculateIncentiveComponent implements OnInit {
       this.sspIncentiveList = response.report.SSP;
       this.ospIncentiveList = response.report.OSP;
       this.calculatedIncentiveList = response.report.Total;
-      if(response.report.errorMessage!=undefined && response.report.errorMessage!=null){
-        this.showError(response.report.errorMessage);
+      if(response.errorMessages != undefined && response.errorMessages != null){
+        this.showWarning(response.errorMessages);
       }
 
     });
@@ -208,12 +208,16 @@ export class CalculateIncentiveComponent implements OnInit {
       osp.noOfClaimsAllowed3 = x.noOfClaimsAllowed3;
       osp.noOfClaimsAllowed4 = x.noOfClaimsAllowed4;
       osp.noOfClaimsAllowed7 = x.noOfClaimsAllowed7;
+      osp.amountEarnedCA2 = x.amountEarnedCA2;
+      osp.amountEarnedCA3 = x.amountEarnedCA3;
+      osp.amountEarnedCA4 = x.amountEarnedCA4;
+      osp.amountEarnedCA7 = x.amountEarnedCA7;
       osp.targetAchieved = x.targetAchieved;
       osp.target = x.target;
       osp.achievedPercentage = x.achievedPercentage;
       osp.incentiveCategory = x.incentiveCategory;
       osp.total = x.total;
-      osp.dealerTargetMonth = x.dealerTargetMonth;
+      osp.dealerTargetMonth = x.dealerTargetPeriod;
       ospList.push(osp);
     })
 
@@ -235,12 +239,16 @@ export class CalculateIncentiveComponent implements OnInit {
       ssp.noOfClaimsAllowed3 = x.noOfClaimsAllowed3;
       ssp.noOfClaimsAllowed4 = x.noOfClaimsAllowed4;
       ssp.noOfClaimsAllowed7 = x.noOfClaimsAllowed7;
+      ssp.amountEarnedCA2 = x.amountEarnedCA2;
+      ssp.amountEarnedCA3 = x.amountEarnedCA3;
+      ssp.amountEarnedCA4 = x.amountEarnedCA4;
+      ssp.amountEarnedCA7 = x.amountEarnedCA7;
       ssp.targetAchieved = x.targetAchieved;
       ssp.target = x.target;
       ssp.achievedPercentage = x.achievedPercentage;
       ssp.incentiveCategory = x.incentiveCategory;
       ssp.total = x.total;
-      ssp.dealerTargetMonth = x.dealerTargetMonth;
+      ssp.dealerTargetMonth = x.dealerTargetPeriod;
       sspList.push(ssp);
     })
 
@@ -259,12 +267,16 @@ export class CalculateIncentiveComponent implements OnInit {
       total.noOfClaimsAllowed3 = x.noOfClaimsAllowed3;
       total.noOfClaimsAllowed4 = x.noOfClaimsAllowed4;
       total.noOfClaimsAllowed7 = x.noOfClaimsAllowed7;
+      total.amountEarnedCA2 = x.amountEarnedCA2;
+      total.amountEarnedCA3 = x.amountEarnedCA3;
+      total.amountEarnedCA4 = x.amountEarnedCA4;
+      total.amountEarnedCA7 = x.amountEarnedCA7;
       total.targetAchieved = x.targetAchieved;
       total.target = x.target;
       total.achievedPercentage = x.achievedPercentage;
       total.incentiveCategory = x.incentiveCategory;
       total.total = x.total;
-      total.dealerTargetMonth = x.dealerTargetMonth;
+      total.dealerTargetMonth = x.dealerTargetPeriod;
       totalList.push(total);
     })
 
@@ -284,9 +296,10 @@ export class CalculateIncentiveComponent implements OnInit {
     if(event.value!==null){
     this.productService.getIncentiveProgram(event.value).subscribe((response) => {
     console.log(response);
+    debugger;
     this.payoutFrequency=response.payoutFrequency;
     this.incentiveCalculationForm.controls['payoutFrequency'].setValue(this.payoutFrequency);
-    this.incentiveCalculationForm.controls['payoutFrequency'].setValue('Quarterly');
+   // this.incentiveCalculationForm.controls['payoutFrequency'].setValue('Quarterly');
    // this.incentiveCalculationForm.controls['payoutFrequency'].setValue('Monthly');
    
     });
@@ -305,6 +318,10 @@ export class CalculateIncentiveComponent implements OnInit {
   }
   showError(msg) {
     this.messageService.add({ severity: 'error', summary: 'Error !', detail: msg });
+  }
+
+  showWarning(msg) {
+    this.messageService.add({ severity: 'info', summary: 'Info !', detail: msg });
   }
   fromYearChange(event){
     this.toYear=null;

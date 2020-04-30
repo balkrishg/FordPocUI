@@ -73,6 +73,7 @@ export class ProductComponent implements OnInit {
     this.product.dateTo = null;
     this.prdFromDate = null;
     this.prdToDate = null;
+    this.product.payoutFrequency = null;
 
   }
 
